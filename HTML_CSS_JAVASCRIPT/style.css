@@ -1,0 +1,24 @@
+img{
+    width: 1080px; /* specifica la larghezza desiderata. in pixel è misura assoluta */
+    height: auto; /* mantiene le proporzioni dell'immagine */
+}
+
+/*da block element a inline element*/
+li{
+    display: inline; /*gli elementi della lista saranno visualizzati in linea */
+    margin-right: 15px;  /*aggiunge uno spazio tra gli elementi della lista */
+    list-style-type: none;  /*rimuove i punti elenco */
+    
+    }
+
+
+
+header{
+    display: flex;
+    justify-content: center; /*trinità della centratura che si applica al contenitore*/
+    align-items: center;
+    background-color: lightblue;
+    height: 100px;
+    width: 100%;
+    margin-bottom: 20px;     
+}
