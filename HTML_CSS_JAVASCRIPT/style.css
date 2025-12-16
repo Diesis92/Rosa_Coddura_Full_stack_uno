@@ -9,7 +9,7 @@ li{
     margin-right: 15px;  /*aggiunge uno spazio tra gli elementi della lista */
     list-style-type: none;  /*rimuove i punti elenco */
     
-    }
+}
 
 
 
@@ -21,4 +21,15 @@ header{
     height: 100px;
     width: 100%;
     margin-bottom: 20px;     
+}
+
+ul li a{
+    text-decoration: none; /*rimuove la sottolineatura dai link */
+    color: darkblue; /*colore del testo del link */
+    font-weight: bold; /*rende il testo del link in grassetto */
+}
+
+#logo{
+    height: 80px; /*specifica l'altezza desiderata in pixel */
+    width: auto; /*mantiene le proporzioni dell'immagine */
 }
