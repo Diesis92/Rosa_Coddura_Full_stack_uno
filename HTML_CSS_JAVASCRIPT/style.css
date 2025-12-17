@@ -5,9 +5,9 @@ img{
 
 /*da block element a inline element*/
 /*li{
-    display: inline; /*gli elementi della lista saranno visualizzati in linea 
+    display: inline; /*gli elementi della lista saranno visualizzati in linea.Metdo alternativo a flexbox, non consigliato e non sempre funziona bene e non scalabile
     margin-right: 15px;  /*aggiunge uno spazio tra gli elementi della lista 
-    list-style-type: none;  /*rimuove i punti elenco 
+    list-style-type: none;  /*rimuove i punti elenco. Meglio usare ul per rimuovere i punti elenco
     
 }*/
 
@@ -15,7 +15,7 @@ img{
 
 header{
     display: flex;
-    justify-content: center; /*trinità della centratura che si applica al contenitore*/
+   justify-content: center; /*trinità della centratura che si applica al contenitore*/
     align-items: center;
     background-color: lightblue;
     height: 100px;
@@ -25,6 +25,8 @@ header{
 
 ul{
     display: flex;
+    list-style-type: none; /*rimuove i punti elenco */
+    gap: 20px; /*aggiunge uno spazio tra gli elementi della lista */
 }
 
 ul li a{
