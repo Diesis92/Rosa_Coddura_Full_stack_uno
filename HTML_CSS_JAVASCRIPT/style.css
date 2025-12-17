@@ -4,12 +4,12 @@ img{
 }
 
 /*da block element a inline element*/
-li{
-    display: inline; /*gli elementi della lista saranno visualizzati in linea */
-    margin-right: 15px;  /*aggiunge uno spazio tra gli elementi della lista */
-    list-style-type: none;  /*rimuove i punti elenco */
+/*li{
+    display: inline; /*gli elementi della lista saranno visualizzati in linea 
+    margin-right: 15px;  /*aggiunge uno spazio tra gli elementi della lista 
+    list-style-type: none;  /*rimuove i punti elenco 
     
-}
+}*/
 
 
 
@@ -21,6 +21,10 @@ header{
     height: 100px;
     width: 100%;
     margin-bottom: 20px;     
+}
+
+ul{
+    display: flex;
 }
 
 ul li a{
