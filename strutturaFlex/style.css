@@ -1,0 +1,85 @@
+/* RESET BASE */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* HTML + BODY */
+html, body {
+  height: 100%;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* BODY layout verticale */
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+/* HEADER */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  background-color: lightblue;
+  height: 100px;
+  margin-bottom: 20px;
+}
+
+/* LOGO */
+#logo {
+  height: 80px;
+  width: auto;
+}
+
+/* NAV */
+ul {
+  display: flex;
+  list-style: none;
+  gap: 20px;
+}
+
+ul li a {
+  text-decoration: none;
+  color: darkblue;
+  font-weight: bold;
+}
+
+/* CONTAINER */
+.container {
+  flex-grow: 1;
+  padding: 20px;
+}
+
+/* 🔥 MAIN diventa FLEX */
+main.layout {
+  display: flex;
+  min-height: 60vh;
+  background-color: lightgray;
+  padding: 20px;
+  gap: 20px;
+}
+
+/* SIDEBAR A SINISTRA */
+aside {
+  width: 250px;
+  background-color: rgb(205, 192, 8);
+  padding: 20px;
+}
+
+/* CONTENT A DESTRA */
+section.content {
+  flex-grow: 1;
+  background-color: #cce5ff;
+  padding: 20px;
+}
+
+/* FOOTER */
+footer {
+  background-color: #eee;
+  padding: 20px;
+  text-align: center;
+  margin-top: 20px;
+}
