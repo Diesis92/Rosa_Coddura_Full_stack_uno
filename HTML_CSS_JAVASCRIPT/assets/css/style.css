@@ -15,11 +15,10 @@ img{
 
 header{
     display: flex;
-   justify-content: center; /*trinità della centratura che si applica al contenitore*/
+    justify-content: center; /*trinità della centratura che si applica al contenitore*/
     align-items: center;
     background-color: lightblue;
     height: 100px;
-    width: 100%;
     margin-bottom: 20px;     
 }
 
