@@ -1,0 +1,61 @@
+/* Reset e base */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: sans-serif;
+}
+
+/* Layout verticale principale */
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;       /* Copre tutto il viewport */
+}
+
+/* Header */
+header {
+  background-color: #4CAF50; /* Verde */
+  color: white;
+  padding: 20px;
+  text-align: center;
+  flex-shrink: 0;
+  border: 4px solid black;   /* Bordo nero spesso */
+  box-sizing: border-box;
+}
+
+/* Footer */
+footer {
+  background-color: #f44336; /* Rosso */
+  color: white;
+  padding: 20px;
+  text-align: center;
+  flex-shrink: 0;
+  border: 4px solid black;   /* Bordo nero spesso */
+  box-sizing: border-box;
+}
+
+/* Container principale dei contenuti */
+.content {
+  display: flex;       /* Sidebar a sinistra, main a destra */
+  flex: 1;             /* Occupa tutto lo spazio verticale tra header e footer */
+}
+
+/* Sidebar */
+.sidebar {
+  flex: 1;                       /* 1/3 dello spazio orizzontale */
+  background-color: #2196F3;     /* Blu */
+  border: 4px solid black;       /* Bordo nero spesso */
+  padding: 20px;
+  box-sizing: border-box;
+  color: white;
+}
+
+/* Main */
+main {
+  flex: 2;                       /* 2/3 dello spazio orizzontale */
+  background-color: #FFEB3B;     /* Giallo */
+  border: 4px solid black;       /* Bordo nero spesso */
+  padding: 20px;
+  box-sizing: border-box;
+}
