@@ -1,0 +1,14 @@
+.uno{
+    position: relative;
+    width: 500px;
+    height: 600px;
+    background-color: lightsalmon;
+}
+.due{
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    background-color: lightgreen;
+    width: 200px;
+    height: 200px;
+}

@@ -52,7 +52,7 @@ footer {
 }
 
 /* Main */
-main {
+.section {
   flex: 2;                       /* 2/3 dello spazio orizzontale */
   background-color: #FFEB3B;     /* Giallo */
   border: 4px solid black;       /* Bordo nero spesso */
