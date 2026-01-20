@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Layout Flexbox</title>
+
+  <style>
+    /* RESET BASE */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* STRUTTURA PAGINA */
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      font-family: sans-serif;
+    }
+
+    header,
+    main,
+    footer {
+      border: 2px solid black;
+      padding: 10px;
+    }
+
+    header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: lightgray;
+    }
+
+    /* NAV */
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 10px;
+    }
+
+    /* MAIN LAYOUT */
+    main {
+      flex: 1;              /* spazio rimanente */
+      display: flex;        /* aside + section affiancati */
+      gap: 10px;
+      margin: 10px 0;
+    }
+
+    aside {
+      flex: 1;
+      min-width: 220px;
+      max-width: 25vw;
+      background-color: lightyellow;
+      padding: 10px;
+    }
+
+    section {
+      flex: 2;
+      background-color: lightpink;
+      padding: 10px;
+    }
+
+    footer {
+      text-align: center;
+      background-color: lightgray;
+    }
+
+    @media (max-width: 600px) {
+  aside {
+    min-width: 0;
+    max-width: 100%;
+    flex: none;
+    width: 100%;
+  }
+
+  main {
+    flex-direction: column;
+  }
+}
+
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <nav>
+      <ul>
+        <li><a href="../primo/index.html">Primo</a></li>
+        <li><a href="../secondo/index.html">Secondo</a></li>
+        <li><a href="index.html">Terzo</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <aside>Aside</aside>
+    <section>Section</section>
+  </main>
+
+  <footer>
+    Footer
+  </footer>
+
+</body>
+</html>

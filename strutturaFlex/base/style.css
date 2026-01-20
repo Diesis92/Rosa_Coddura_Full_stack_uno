@@ -1,0 +1,162 @@
+/* ========================
+   RESET GLOBALE
+   - box-sizing: border-box evita che padding/border aumentino le dimensioni degli elementi
+   - margin e padding a 0 eliminano gli spazi di default del browser
+======================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* ========================
+   HTML + BODY
+   - height: 100% serve a dare un riferimento di altezza ai figli
+   - font-size: 16px per avere un riferimento stabile per rem
+======================== */
+html, body {
+    height: 100%;
+    font-size: 16px; /* base per rem */
+}
+
+body {
+    display: flex;            /* crea un layout verticale per header, main, footer */
+    flex-direction: column;   /* impila header/main/footer in verticale */
+    min-height: 100vh;        /* assicura che il body occupi almeno tutta la finestra */
+    font-family: Arial, sans-serif;
+}
+
+/* ========================
+   HEADER
+   - display: flex per allineare logo, titolo e nav sulla stessa riga
+   - justify-content: space-between per distanziare logo/titolo da nav
+   - align-items: center per centrare verticalmente gli elementi
+   - padding in em: scala con la dimensione del font
+======================== */
+header {
+    display: flex;
+    flex-direction: row;          
+    align-items: center;          
+    justify-content: space-between;
+    padding: 2em 2em;  /* verticale 2em, orizzontale 2em */
+    background-color: aqua;
+}
+
+/* ========================
+   LOGO
+   - altezza in rem per scalare con font root
+   - width: auto per non deformare l'immagine
+======================== */
+header .logo img {
+    height: 5rem;
+    width: auto;
+}
+
+/* ========================
+   TITOLO
+   - font-size in rem: stabile e indipendente dal genitore
+======================== */
+header .title {
+    font-size: 2rem; 
+}
+
+/* ========================
+   NAV
+   - ul in display flex per disporre i li orizzontalmente
+   - gap in em per spaziatura scalabile con il font
+   - list-style: none per rimuovere bullet
+======================== */
+nav ul {
+    display: flex;
+    gap: 1.5em;   
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* ========================
+   LINK
+   - text-decoration: none rimuove il sottolineato
+   - font-size in rem: coerente con il font principale
+======================== */
+nav ul li a {
+    text-decoration: none;
+    font-size: 1rem; 
+}
+
+/* ========================
+   MAIN
+   - display: flex per affiancare aside e section
+   - flex: 1 permette al main di occupare tutto lo spazio verticale disponibile
+======================== */
+main {
+    display: flex;
+    flex: 1;  
+}
+
+/* ========================
+   ASIDE
+   - flex: 1 indica quanto spazio prende rispetto alla section
+   - padding in em per spaziatura scalabile
+======================== */
+aside {
+    flex: 1;
+    background-color: lime;
+    padding: 1em;
+}
+
+/* ========================
+   SECTION
+   - flex: 3 indica che prende più spazio di aside
+   - padding in em per spaziatura scalabile
+======================== */
+section {
+    flex: 3;
+    background-color: yellow;
+    padding: 1em;
+}
+
+/* ========================
+   FOOTER
+   - text-align: center per centrare il contenuto
+   - padding in em per spaziatura interna
+======================== */
+footer {
+    text-align: center;
+    background-color: orange;
+    padding: 1em;
+}
+
+/* ========================
+   MOBILE RESPONSIVE
+   - breakpoint: max-width 767px
+   - header diventa verticale
+   - nav diventa colonna
+   - riduzione padding per adattarsi a schermi piccoli
+======================== */
+@media (max-width: 767px) {
+
+    header {
+        flex-direction: column;       /* impila logo, titolo e nav in verticale */
+        align-items: flex-start;      /* allinea a sinistra */
+        padding: 1em;                 /* padding più piccolo su mobile */
+    }
+
+    nav ul {
+        flex-direction: column;       /* link uno sotto l'altro */
+        gap: 1em;                     /* spaziatura ridotta */
+    }
+
+    header .title {
+        margin: 0.5em 0;              /* margine verticale per separare titolo e nav */
+    }
+
+    main {
+        flex-direction: column;       /* aside e section impilati verticalmente */
+    }
+
+    aside, section {
+        padding: 0.5em;               /* padding ridotto su mobile */
+    }
+}
+       
