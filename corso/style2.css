@@ -1,0 +1,61 @@
+.elm{
+   background-color: rgba(20, 100, 155, 0.5);
+   height: 100px;
+   
+}
+
+.el-a{
+   background-color: rgba(155, 100, 20, 0.5);
+   height: 100px;  
+}
+
+.el-b{
+   background-color: rgba(251, 0, 4, 0.5);
+   /* bottom: 81px; */
+   /* position: fixed; */
+   /* position: static;  default */
+   position: relative;
+   left: 100px;
+  
+}
+
+/*il css funziona in layer. z-index fa si che gli elementi vengano visualizzati uno sopra l'altro */
+/*un modal è un elemento che si sovrappone ad altri elementi. Gli alert di javascript lo sono perché è un popup*/
+.el-c{
+   background-color: rgba(155, 100, 20, 0.5);
+   
+}
+
+.gira{
+   
+  background-color: green;
+  /* position: relative; */
+    position: absolute;
+  left: 0;
+  top: 0px;
+  width: 100px;
+  height: 100px;
+}
+
+/*
+il flexbox posiziona gli elementi  tramite assi x e y e a seconda della direzione degli assi
+gli elementi vengono posizionati in modo diverso. 
+il conteiner flex è l'elemento che contiene gli elementi flex (i figli)
+gli item flex sono gli elementi figli del conteiner flex
+e possono essere disposti in righe o colonne tramite la proprietà flex-direction
+che sono row, row-reverse, column, column-reverse e flex-wrap per andare a capo
+flex-grow, flex-shrink, flex-basis per la gestione delle dimensioni degli item flex
+justify-content per l'allineamento lungo l'asse principale
+*/
+
+.row {
+    display: flex;
+    flex-direction: row;
+   gap : 2em;
+   flex-wrap: wrap;
+}
+
+.col article {
+    max-width: 50em;
+}
+ 

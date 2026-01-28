@@ -1,0 +1,127 @@
+/*selettori*/
+
+h2{
+    color: green;
+}
+
+#titolone{
+    
+    text-decoration: underline;
+    color: brown;
+}
+
+.titolo-articolo{
+    
+    color: orange;
+}
+
+/*concatenare le istruzioni*/
+
+li > p{
+    color: salmon;
+}
+
+#articolo-1 p{
+    font-size: small;
+}
+/*selettore discendente quello che sta a destra da quello di sinistra*/
+/*più specifico di un selettore più alta è la priorità*/
+/*fratelli di id articolo-1*/
+#articolo-1 ~ article {
+    background-color: lightseagreen;
+}
+
+/* il primo article dopo id articolo-1*/
+#articolo-1 + * + article {
+    background-color: red;
+}
+
+/*uso di !important per forzare una regola css*/
+/*importante ha la precedenza su tutto*/
+/*selettore combinato*/
+/*virgola seleziona più elementi*/
+#articolo-1 p, #articolo-1 > li {
+    font-size: large !important;
+}
+
+/*pseudo classe*/
+/*selettore di attributo*/
+
+  li .tipo-strano {
+   text-decoration: underline;
+}
+
+a[target="_blank"] {
+    font-weight: bold;
+    color: purple;
+}
+
+.elm{
+   background-color: rgba(20, 100, 155, 0.5);
+   height: 100px;
+   
+}
+
+
+ 
+.item{
+   background-color: rgba(198, 223, 7, 0.5);
+   
+}
+
+
+.item-2{
+   background-color: rgba(7, 129, 223, 0.5);
+   /*display: none; /*non viene visualizzato*/
+   /*visibility: hidden; /*spazio occupato ma non visibile*/
+   visibility: collapse; /*spazio occupato e non visibile*/
+   
+}
+
+.item-3{
+   background-color: rgba(129, 223, 7, 0.5);
+   display: inline;
+   
+}
+
+.item-4{@media screen and (min-width: 600px) {
+    div.main {
+        max-width: 500px;
+        background-color: lightsalmon;
+    }
+}
+   background-color: rgba(223, 7, 129, 0.5);
+   display: inline;
+}
+
+
+@media screen and (min-width: 600px) {
+    div.main {
+        /* max-width: 500px; */
+        max-width: calc(500px + 20em);
+        background-color: var(--colore-primario)/*uso della variabile css*/
+    }
+    
+}
+
+/*posizionamento relativo, assoluto, fisso, sticky*/
+
+
+
+
+/* em è una unità di misura relativa alla dimensione del font corrente *
+em è di 16 px. si usa per definire le dimensioni relative al font corrente */
+/* rem è una unità di misura relativa alla dimensione del font radice (html) 
+si usa per definire le dimensioni relative al font radice (html)*/
+/*% è una unità di misura relativa all'elemento contenitore
+i px sono stati sostituiti con em e rem per una maggiore flessibilità e accessibilità
+calc scala le dimensioni in base alle unità di misura utilizzate*/
+
+/*se volessimo creare delle variabili css*/
+:root {
+    --colore-primario: teal;
+    --colore-secondario: coral;
+}
+
+
+
