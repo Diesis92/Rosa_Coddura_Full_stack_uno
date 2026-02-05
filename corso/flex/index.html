@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="">
+    <title>Document</title>
+    <style>
+        .item-bg{
+            background-color: rgba(100, 255, 100, 0.2);
+    }
+
+    .row{ /*approccio più generale legato alle classi css per non andare ad intaccare la struttura*/
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        margin-top: 1.5em;
+        margin-bottom: 1.5em;
+        min-height: 3em;
+        
+        
+    }
+
+    .justify-content-center{ /*più è specifico quel selettore più ha priorità*/
+        justify-content: center;
+    }
+
+    .justify-content-around{ /*spazioe equo*/
+        justify-content: space-around;
+    }
+
+    
+
+
+    .logo{
+        /*width: auto; dimensione gestita automaticamente ma va fuori scala in dispositii più piccoli*/
+        /*responsività dell'immagine*/
+        height: auto; 
+        max-width: 100%; /*l'immagine non supera mai il 100% della larghezza del contenitore*/
+        max-height: 100%; /*l'immagine non supera mai il 100% dell'altezza del contenitore*/
+    }
+
+    /*ogni elemento html ha un suo stile di default che possiamo sovrascrivere. C'è una regola reset che resetta
+    le caratteristiche base seconda una regola precisa. si usa in tutti i framework. E importante per l'accessibilità*/
+    /*è sempre il genitore che decide come disporsi i figli*/
+
+    /*Dentro flex possiamo utilizzare un inline block e viceversa. approccio per display block ma diciamo addio alla responsività ma è sempre meglio usare flex per la responsività*/
+    .navbar{
+        margin-left: auto;
+        margin-right: auto;
+        /*per centrare un elemento con il display block si usano i margin auto*/
+    }
+
+    .navbar li.nav-item{
+        display: inline-block; /*gli elementi della lista si dispongono in orizzontale. Non sono centrati perché sono elementi
+        di tipo blocco*/
+        margin: 0.75em 1em; /*spaziatura tra i link del menu*/   
+    }
+
+    .item-bg2{
+        background-color: rgba(100, 100, 255, 0.2);
+        
+    }
+
+    .row > .col{
+      min-width: 30%; /*larghezza minima della colonna*/
+      max-width: 30%; /*larghezza massima della colonna*/
+    }
+
+    .article-content h1, .article-content h2{
+        text-align: center;
+        margin-top: 0.25em;    
+    }
+
+    .article-content h1{
+        margin-bottom: 0.25em;    
+    }
+
+     .article-content p{
+        margin: 0.5em 0.25em;
+    }
+
+    .article-content{
+        padding: 0.25em;
+    }
+
+    .card{
+        border: solid 1px black;
+        border-radius: 16px; /*da 5px deve essere multiplo di 4*/
+        
+    }
+    
+    </style>
+</head>
+<body> <!--Mai mettere id o class al body. Le classi al body lo mette boostrap ma per le 
+    regole sue-->
+    <div class="container item-bg"><!--posso mettere più classi ad un div ma non più id-->
+        <header class="row justify-content-center item-bg">
+            <!--logo-->
+            <div class="item-bg">
+                <img src="https://placehold.co/400x100" class="logo"> <!--non possiamo gestire l'unità di misura dell'immagine ma si gestice nel css--> 
+                <!--<img srcset="https://placehold.co/600x400 1x, https://placehold.co/600x400 2x" alt=""> srcset stiamo dicendo al browser in che grandezza renderizzare l'immagine-->
+            </div>
+        </header>
+        <nav class="row item-bg">
+            <!--menu-->
+            <!--premere alt dove si intende scrivere per selezionare più righe. CTRL+H per sostituire più tag. CTRL+SHIFT+F si apre
+            una scheda laterale dove cercare eventuali tag-->  
+            <ul class="navbar">
+                <li class="nav-item"><a href="/">Home</a></li>
+                <li class="nav-item"><a href="/">Products</a></li>
+                <li class="nav-item"><a href="/">Service</a></li>
+                <li class="nav-item"><a href="/">About</a></li>
+                <li class="nav-item"><a href="/">Contact</a></li>
+            </ul>
+        </nav>
+        <main class="row item-bg">Feature</main>
+        <div class="row item-bg justify-content-around">
+            <div class=" col">
+                <article class="article-content item-bg2">
+                    <hgroup>
+                        <h1>Colonna 1</h1>
+                        <h2>sottotitolo</h2>
+                    </hgroup>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur sunt, est vero voluptatem fugiat corporis fugit libero doloremque dolor eius..</p>
+                </article>
+            </div>
+            <div class=" col">
+                 <article class="item-bg2 article-content card">
+                    <hgroup>
+                        <h1>Colonna 1</h1>
+                        <h2>sottotitolo</h2>
+                    </hgroup>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur sunt, est vero voluptatem fugiat corporis fugit libero doloremque dolor eius..</p>
+                </article>
+            </div>
+            <div class=" col">
+                 <article class="item-bg2 article-content">
+                    <hgroup>
+                        <h1>Colonna 1</h1>
+                        <h2>sottotitolo</h2>
+                    </hgroup>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur sunt, est vero voluptatem fugiat corporis fugit libero doloremque dolor eius..</p>
+                </article>
+            </div>
+        </div>
+        <footer class="row item-bg">item</footer>
+    </div> 
+    
+</body>
+</html>
