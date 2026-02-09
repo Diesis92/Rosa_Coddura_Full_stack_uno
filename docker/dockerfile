@@ -1,0 +1,27 @@
+# Use the official Debian image as the base image
+FROM debian:latest
+#FROM python:3.11-slim # Alternatively, you can use a Python image that already has Python installed
+LABEL description="Simple Dockerfile for a basic Debian image"
+LABEL maintainer="Rosa"
+LABEL version="1.0"
+
+# Install Python and pip to run a simple Flask application inside the container and set up the working directory  for the application
+RUN apt-get update && apt-get install -y python3 python3-pip
+WORKDIR /app
+COPY requirements.txt .
+COPY app.py .
+RUN pip3 install -r requirements.txt
+
+
+# Set environment variables for Flask
+ENV FLASK_APP=app.py
+ENV FLASK_RUN_HOST=0.0.0.0
+
+
+# Start the Flask application
+EXPOSE 5000 
+# Expose the port that Flask will run on
+USER nobody
+# Run the Flask app as a non-root user for better security
+VOLUME /app/data
+# Create a volume for persistent data storage
