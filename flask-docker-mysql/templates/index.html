@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Gestione Visite</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container py-5">
+    <h1 class="mb-4">Gestione Visite</h1>
+
+    <!-- Form per aggiungere visita -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title">Aggiungi nuova visita</h5>
+            <div class="input-group">
+                <input type="text" id="nome" class="form-control" placeholder="Nome">
+                <input type="text" id="cognome" class="form-control" placeholder="Cognome">
+                <button class="btn btn-primary" onclick="aggiungiVisita()">Invia</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lista visite -->
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Elenco visite</h5>
+            <button class="btn btn-success mb-3" onclick="caricaVisite()">Carica visite</button>
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped" id="visiteTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>Cognome</th>
+                            <th>Azioni</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Le righe verranno inserite dinamicamente -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS e dipendenze -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    // Usa host.docker.internal:5000 per comunicare con Flask dal browser host
+    const API_URL = "http://localhost:5000";
+
+    function aggiungiVisita() {
+        const nome = document.getElementById("nome").value;
+        const cognome = document.getElementById("cognome").value;
+        if (!nome || !cognome) return alert("Inserisci nome e cognome!");
+
+        fetch(`${API_URL}/add_visit`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ nome, cognome })
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+            document.getElementById("nome").value = "";
+            document.getElementById("cognome").value = "";
+            caricaVisite();
+        });
+    }
+
+    function caricaVisite() {
+        fetch(`${API_URL}/get_visits`)
+        .then(res => res.json())
+        .then(data => {
+            const tbody = document.querySelector("#visiteTable tbody");
+            tbody.innerHTML = "";
+
+            data.forEach(v => {
+                const tr = document.createElement("tr");
+                tr.innerHTML = `
+                    <td>${v.id}</td>
+                    <td><input type="text" class="form-control" id="nome-${v.id}" value="${v.nome}"></td>
+                    <td><input type="text" class="form-control" id="cognome-${v.id}" value="${v.cognome}"></td>
+                    <td>
+                        <button class="btn btn-warning btn-sm me-1" onclick="aggiornaVisita(${v.id})">Aggiorna</button>
+                        <button class="btn btn-danger btn-sm" onclick="eliminaVisita(${v.id})">Elimina</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        });
+    }
+
+    function aggiornaVisita(id) {
+        const nome = document.getElementById(`nome-${id}`).value;
+        const cognome = document.getElementById(`cognome-${id}`).value;
+
+        fetch(`${API_URL}/update_visit/${id}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ nome, cognome })
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+            caricaVisite();
+        });
+    }
+
+    function eliminaVisita(id) {
+        fetch(`${API_URL}/delete_visit/${id}`, { method: "DELETE" })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+            caricaVisite();
+        });
+    }
+
+    window.onload = caricaVisite;
+</script>
+
+</body>
+</html>
