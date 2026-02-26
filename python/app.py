@@ -123,3 +123,89 @@ print(json_dict) # stampa la lista di dizionari che rappresenta le persone, otte
 
 x = "ciao"
 print(type(x))
+
+#gestione stringhe
+nome = "Marco"
+eta = 28
+print("Ciao" + nome + "hai " + str(eta) + "anni")
+#oppure f che sta per format/formattare
+print(f"Ciao {nome} hai {eta} anni")
+print(f"Ciaoo { nome} tra 10 anni avrai {eta + 10 } anni")
+
+#una stringa è un oggetto
+testo = "Ciao Mondo"
+testo_maiuscolo = testo.upper()
+print(testo_maiuscolo)
+
+testo.lower()
+testo.capitalize()
+
+#split
+
+frase = "Nel mezzo del cammin di nostra vita"
+#voglio mettere le singole parole della frase e metterli in una lista
+parole = frase.split()
+print(parole)
+
+#ma supponiamo di avere dei dati seperati da virgola tipo csv
+dati = "Marco, 28, Palermo"
+elementi = dati.split(",")
+print(elementi)
+#e se andassi indietro? Join
+nomi = ["Paolo" , "Giovanni", "Maria"]
+frase = ",".join(nomi)
+
+#replace
+testo = "Mi piace il the"
+nuovo = testo.replace("the","caffè")
+#tutte queste cose sono a che fare a ETL extrasformer. purificazione dei dati
+testo = " Ciao Mondo "
+pulito = testo.strip()
+
+testo = "Ciao Nemo"
+posnemo = testo.find("Nemo")
+
+nome.startswith()
+nome.endswith()
+
+lista = [1, 2, 3]
+lista.append[4]
+
+listadue = [1,2,4]
+listadue.insert(2,3)
+
+listatre = ["a", "b", "d"]
+listatre.insert(2, "c")
+
+listatre.remove("b") #elimina per valore
+
+listatre.pop(2) #elimina per posizione
+#ma prima posso prendere l'elemento per memorizzarlo
+eliminato = listatre.pop(2)
+amici = ["Mario", "Francesco", "Giuseppe"]
+pos = amici.index("Francesco")
+pos = amici.index("Francesco"-1)
+
+#sort
+amici.sort()
+amici.reverse()
+Mario = amici.count("Mario")
+amici.clear()
+
+#dizionari
+persona = {"Nome": "Marco", "eta": 28, "citta": "Palermo"}
+chiavi = persona.keys()
+valori = persona.values()
+
+#foreach
+
+for chiave, valore in persona.items():
+    print(f"{chiave}:{valore}")
+
+#come creare le liste in maniera più compatta. Supponiamo di voler stampare dei numeri di una lista ma solo se pari
+numeri = [1, 2,3,4,5,6,15,17,18,21,20,21,97]
+numeripari =[numero for numero in numeri if numero % 2 == 0]
+
+persone = [{"nome": "Mario", "eta": 28, "Maria": ""#lsta lunga}]
+nome_persona = [persona ["nome"]for persona in persona if persone ["eta"] > 28]
+
