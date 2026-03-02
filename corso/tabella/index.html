@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tabelle con Bootstrap</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        /* box-sizing: border-box; */
+      }
+      .container {
+        width: 100%;
+        margin: 0 auto;
+      }
+
+      header > h1 {
+        margin-top: 0;
+        padding-top: 0.5em;
+        padding-left: 1.25rem; /* Corretto da 1, 25rem */
+        padding-bottom: 0.5rem;
+      }
+
+      .container > header {
+        background-color: green;
+      }
+
+      .container > main {
+        background-color: lightgray;
+        border: dotted 2px darkslategray;
+        border-radius: 0.75rem;
+        min-width: 80%;
+        max-width: 80%;
+        margin: 0 auto;
+        padding: 1rem;
+      }
+
+      table.table {
+        width: 100%;
+        border-spacing: 0.25rem;
+        border: double 1px darkslategray;
+      }
+
+      table.table tr td {
+        padding: 0rem;
+        border: double 1px darkslategray;
+        border-radius: 0.5rem;
+      }
+
+      /* Aggiungi margini tra le card */
+      .card {
+        margin-bottom: 2rem;
+        padding: 1rem;
+        /* background-color: white; */
+        border-radius: 0.5rem;
+        /* box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); */
+      }
+
+      table.table thead{
+        background-color: dimgray;
+        padding: 0.25rem;
+      }
+
+      table.table tfoot{
+        background-color:white;
+        padding: 0.25rem;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Esempio di Tabella</h1>
+      </header>
+      <main>
+        <!-- Prima Tabella dentro il div card -->
+        <div class="card">
+          <h2>Tabella 01</h2>
+          <hr />
+          <table class="table">
+            <tr>
+              <td>ID</td>
+              <td>Nome</td>
+              <td>Cognome</td>
+              <td>Età</td>
+              <td>Hobby</td>
+              <td>Cose che odia</td>
+            </tr>
+            <tr>
+              <td>01</td>
+              <td>Enrico</td>
+              <td>Fontana</td>
+              <td>37</td>
+              <td>Videogiochi</td>
+              <td>Apple e tutta la sua specie</td>
+            </tr>
+            <tr>
+              <td>02</td>
+              <td>Daniele</td>
+              <td>Gugliuzza</td>
+              <td>37</td>
+              <td>Rimoworld</td>
+              <td>Gli astemi e tutta la loro razza</td>
+            </tr>
+          </table>
+        </div>
+        
+        <!-- Seconda Tabella migliorata con gli head dentro il div card -->
+        <div class="card">
+          <h2>Tabella 02 migliorata con gli head</h2>
+          <hr />
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Cognome</th>
+                <th scope="col">Età</th>
+                <th scope="col">Hobby</th>
+                <th scope="col">Cose che odia</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>01</th>
+                <td>Enrico</td>
+                <td>Fontana</td>
+                <td>37</td>
+                <td>Videogiochi</td>
+                <td>Apple e tutta la sua specie</td>
+              </tr>
+              <tr>
+                <th>02</th>
+                <td>Daniele</td>
+                <td>Gugliuzza</td>
+                <td>37</td>
+                <td>Rimoworld</td>
+                <td>Gli astemi e tutta la loro razza</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        
+        <!-- Terza Tabella ancora migliorata con gli head dentro il div card -->
+        <section class="card">
+          <h2>Tabella 03 migliorata con gli head</h2>
+          <hr />
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Cognome</th>
+                <th scope="col">Età</th>
+                <th scope="col">Hobby</th>
+                <th scope="col">Cose che odia</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>01</td>
+                <td>Enrico</td>
+                <td>Fontana</td>
+                <td>37</td>
+                <td>Videogiochi</td>
+                <td>Apple e tutta la sua specie</td>
+              </tr>
+              <tr>
+                <td>02</td>
+                <td>Daniele</td>
+                <td>Gugliuzza</td>
+                <td>37</td>
+                <td>Rimoworld</td>
+                <td>Gli astemi e tutta la loro razza</td>
+              </tr>
+            </tbody>
+            <tfoot>
+                <td colspan="6">Totale 2 persone</td>
+            </tfoot>
+          </table>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
