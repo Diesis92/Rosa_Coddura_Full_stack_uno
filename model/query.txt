@@ -1,0 +1,75 @@
+📘 Riassunto SQL – Clienti & Ordini
+📌 Tabelle
+Tabella Clienti
+Contiene i dati dei clienti.
+Campi principali:
+•	id – chiave primaria (identifica univocamente ogni cliente) 
+•	nome – nome del cliente 
+•	cognome – cognome del cliente 
+•	email – email del cliente (univoca) 
+Questa tabella serve per memorizzare i clienti del sistema.
+________________________________________
+Tabella ordini
+Contiene gli ordini effettuati.
+Campi principali:
+•	id – chiave primaria (identifica ogni singolo ordine) 
+•	id_cliente – riferimento all’id del cliente nella tabella Clienti 
+•	importo – valore dell’ordine 
+Questa tabella contiene tutti gli ordini associati ai clienti. È collegata alla tabella Clienti tramite la chiave esterna id_cliente.
+________________________________________
+👩‍💻 Query e spiegazioni
+________________________________________
+✅ 1. Seleziona ordini con importo maggiore di 50 €
+SELECT Clienti.nome, Clienti.cognome, ordini.importo
+FROM Clienti
+JOIN ordini ON Clienti.id = ordini.id_cliente
+WHERE ordini.importo > 50;
+Cosa fa:
+Mostra nome, cognome e importo degli ordini con importo superiore a 50 €.
+Utilizza una JOIN tra Clienti e ordini per collegare i dati dei clienti a quelli degli ordini.
+________________________________________
+💾 2. Crea una view chiamata Ordini_ImportoAlto
+CREATE VIEW Ordini_ImportoAlto AS
+SELECT Clienti.nome, Clienti.cognome, ordini.importo
+FROM Clienti
+JOIN ordini ON Clienti.id = ordini.id_cliente
+WHERE ordini.importo > 50;
+Cosa fa:
+Crea una vista (view) che contiene tutte le righe con importo superiore a 50 €.
+Una view è come una tabella virtuale basata su una SELECT.
+________________________________________
+🆔 3. Seleziona ordini includendo ID ordine
+SELECT ordini.id AS id_ordine, Clienti.nome, Clienti.cognome, ordini.importo
+FROM Clienti
+INNER JOIN ordini ON Clienti.id = ordini.id_cliente;
+Cosa fa:
+Mostra tutti gli ordini con:
+•	id_ordine (identificatore unico dell’ordine) 
+•	nome e cognome del cliente 
+•	importo dell’ordine 
+Includere l’ID dell’ordine permette anche alle interfacce grafiche (come phpMyAdmin) di offrire azioni come Modifica/Elimina sulle righe.
+________________________________________
+📊 4. Somma totale degli ordini per cliente
+SELECT Clienti.nome, Clienti.cognome, SUM(ordini.importo) AS totale_speso
+FROM Clienti
+INNER JOIN ordini ON Clienti.id = ordini.id_cliente
+GROUP BY Clienti.id, Clienti.nome, Clienti.cognome;
+Cosa fa:
+Calcola quanto ha speso in totale ogni cliente, raggruppando gli ordini per cliente.
+Usa:
+•	SUM() per sommare tutti gli importi 
+•	GROUP BY per creare gruppi in base al cliente 
+________________________________________
+👀 5. Crea una view pubblica senza dati sensibili
+CREATE VIEW OrdiniPubblici AS
+SELECT ordini.id AS id_ordine, Clienti.nome, Clienti.cognome, ordini.importo
+FROM Clienti
+INNER JOIN ordini ON Clienti.id = ordini.id_cliente;
+Cosa fa:
+Crea una view chiamata OrdiniPubblici che mostra per ogni ordine:
+•	ID dell’ordine 
+•	Nome cliente 
+•	Cognome cliente 
+•	Importo 
+Non include la email, quindi è sicura da condividere pubblicamente.
+
