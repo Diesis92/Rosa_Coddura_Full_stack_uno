@@ -1,0 +1,18 @@
+per usare pycharm dalla directory, digitare w+r e sysdm.cpl, si aprirà una finestra
+andare su avanzate-variabili d'ambiente e incollare nel path sia di utenti che di sistema
+"C:\Program Files\JetBrains\PyCharm 2025.3.3\bin"
+una volta fatto, aprire powershella dalla directory con shift+destro e non srivere pycharm . altrimenti
+avvia tutto il processo senza lavorare in background e la shella sarà occupata dai processi di pycharm.
+Per evitare ciò, scrivi "  Start-Process "C:\Program Files\JetBrains\PyCharm 2025.3.3\bin\pycharm64.exe" -ArgumentList "."
+così puoi utilizzare la stessa shell per avviare docker
+
+🔹 Sintesi
+Programma	Background / shell libera	Come si ottiene
+Docker Compose	sì, con -d	docker compose up -d
+PyCharm	no, di default	Start-Process "pycharm64.exe" -ArgumentList "."
+
+💡 In pratica:
+
+Docker ha un flag interno per il background.
+
+PyCharm non ce l’ha, quindi serve staccare il processo tramite Start-Process.

@@ -1,0 +1,48 @@
+version: "3.9"
+
+services:
+  mariadb:
+    image: mariadb:${MARIADB_VERSION:-11}
+    container_name: ${MARIADB_CONTAINER_NAME:-my-mariadb}
+    restart: unless-stopped
+
+    environment:
+      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD:-supersecret}
+      MARIADB_DATABASE: ${MARIADB_DATABASE:-mydatabase}
+      MARIADB_USER: ${MARIADB_USER:-myuser}
+      MARIADB_PASSWORD: ${MARIADB_PASSWORD:-mypassword}
+      TZ: ${TZ:-Europe/Rome}
+
+    ports:
+      - "${MARIADB_HOST_PORT:-3306}:3306"
+
+    volumes:
+      - ${MARIADB_DATA_PATH:-mariadb_data}:/var/lib/mysql
+
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  phpmyadmin:
+    image: phpmyadmin:${PHPMYADMIN_VERSION:-latest}
+    container_name: ${PHPMYADMIN_CONTAINER_NAME:-phpmyadmin}
+    restart: unless-stopped
+
+    depends_on:
+      mariadb:
+        condition: service_healthy
+
+    environment:
+      PMA_HOST: ${PMA_HOST:-mariadb}
+      PMA_PORT: ${PMA_PORT:-3306}
+      TZ: ${TZ:-Europe/Rome}
+      #PMA_USER: ${MARIADB_USER:-myuser}
+      #PMA_PASSWORD: ${MARIADB_PASSWORD:-mypassword}
+      UPLOAD_LIMIT: ${PHPMYADMIN_UPLOAD_LIMIT:-64M}
+    ports:
+      - "${PHPMYADMIN_HOST_PORT:-8080}:80"
+
+volumes:
+  mariadb_data:
