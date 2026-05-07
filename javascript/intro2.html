@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function passo(){
+            document.getElementById("bau").innerHTML = "il cane fa bau bau";
+        }
+    </script>
+</head>
+<body>
+    <h1> Magia js </h1>
+    <p id = "scambio">ciao </p>
+    <button type = "button" onclick='document.getElementById("scambio").innerHTML="arrivederci"'>cambia testo</button>
+    <button type = "button" onclick='document.getElementById("scambio").style.fontStyle="italic"'>cambia stile</button>
+    <button type = "button" onclick='document.getElementById("scambio").style.display="none"'>nascondi testo</button>
+    <button type = "button" onclick='document.getElementById("scambio").style.display="block"'>mostra testo</button>
+    <p id="Miao">miao</p>
+    <p id="bau">Miao</p>
+    <button type="button" onclick="passo()">fa bau</button>
+
+<script>
+
+    document.getElementById("Miao").innerHTML = "bau bau";  
+    
+
+</script>
+</body>
+</html>
