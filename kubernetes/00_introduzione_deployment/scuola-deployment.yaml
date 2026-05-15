@@ -1,0 +1,19 @@
+apiVersion: apps/v1 #versione dell'API Kubernetes
+kind: Deployment #tipo di risorsa Kubernetes
+metadata: #metadati del deployment
+  name: scuola-deployment #nome del deployment
+spec: #specifica del deployment
+  replicas: 5 #numero di repliche del pod da creare
+  selector: #selettore per identificare i pod gestiti da questo deployment
+    matchLabels: #etichetta per identificare i pod
+      app: scuola-ws-pod #etichetta per identificare i pod
+  template: #template per i pod da creare
+    metadata: #metadati del pod
+      labels:
+        app: scuola-ws-pod
+    spec: #
+      containers:
+      - name: scuola-ws-pod
+        image: nginx:1.25 #immagine del container da utilizzare
+        ports:
+        - containerPort: 80

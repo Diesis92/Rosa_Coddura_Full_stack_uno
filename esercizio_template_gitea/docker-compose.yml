@@ -1,0 +1,54 @@
+version: "3.8" #specifica la versione di docker-compose
+ 
+networks: # definisce una rete personalizzata per i servizi
+  gitea: # nome della rete
+    driver: bridge #tipo di rete
+ 
+volumes: # definisce i volumi per la persistenza dei dati
+  gitea-data: #volume per i dati di gitea
+  postgres-data: #volume per i dati di PostgreSQL
+ 
+services: # definisce i servizi che compongono l'applicazione
+  db: # servizio per il database PostgreSQL
+    image: postgres:14-alpine # immagine ufficiale di postgresSQL basata su Alpine Linux che la distro minimale di Linux
+    container_name: gitea-db # nome del container del db
+    restart: always # riavvia sempre il container in caso di crash o riavvio del sistema
+    environment: #variabili d'ambiente per configurare postgresSQL
+      - POSTGRES_USER=gitea #nome utente del database
+      - POSTGRES_PASSWORD=gitea #passaword del db
+      - POSTGRES_DB=gitea # nome del database da usare
+    networks: #connessione della rete definita sopra nel servizio db
+      - gitea #nome della rete a cui connettersi
+    volumes: #montaggio volume per la persistenza dei dati
+      - postgres-data:/var/lib/postgresql/data # percorso interno al container dove postgress memorizza i suoi dati
+    healthcheck: #configurazione di controllo di salute per assicurarsi che il database sia pronto per avviare gitea
+      test: ["CMD-SHELL", "pg_isready -U gitea"] #comando per verificare se postgresSQL se db è pronto e anche tutte le configurazioni dell'utente gitea sono pronte
+      interval: 10s #intervallo tra i controlli di salute
+      timeout: 5s #tempo massimo per il completamento dei controlli salute
+      retries: 5 #numero tentativi
+ 
+  server: # secondo servizio
+    image: gitea/gitea:1.21 #nome del secondo servizio per gitea
+    container_name: gitea-server
+    restart: always
+    environment:
+      - USER_UID=1000
+      - USER_GID=1000
+      - GITEA__database__DB_TYPE=postgres
+      - GITEA__database__HOST=db:5432
+      - GITEA__database__NAME=gitea
+      - GITEA__database__USER=gitea
+      - GITEA__database__PASSWD=gitea
+      - GITEA__server__DOMAIN=localhost
+      - GITEA__server__SSH_DOMAIN=localhost
+      - GITEA__server__ROOT_URL=http://localhost:3000/
+    networks:
+      - gitea
+    volumes:
+      - gitea-data:/data
+    ports:
+      - "3000:3000"
+      - "2222:22"
+    depends_on: #assicura che il servizio venga avviato dopo che il db venga connesso e considerato sano
+      db: #nome del servizio da cui dipende
+        condition: service_healthy #condizione per considerare il servizio db sano
