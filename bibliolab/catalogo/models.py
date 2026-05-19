@@ -14,3 +14,17 @@ class Prodotto(models.Model):
         ordering = ['-creato_il'] #asc e desc per ordinare i prodotti in base alla data di creazione, dal più recente al più vecchio
         verbose_name = "Prodotto"
         verbose_name_plural = "Prodotti"
+
+# class Autore(models.Model):
+#     nome = models.CharField(max_length=50)
+#     cognome = models.CharField(max_length=50)
+#     email = models.EmailField(unique=True)
+
+# class Articolo(models.Model):
+#     titolo = models.CharField(max_length=100)
+#     contenuto = models.TextField()
+#     autore = models.ForeignKey('Autore', on_delete=models.CASCADE)
+#     data_pubblicazione = models.DateTimeField(auto_now_add=True)
+
+# nuovo_utente = Autore.objects.create(nome="Mario", cognome="Rossi", email="mario.rossi@example.com")
+# nuovo_articolo = Articolo.objects.create(titolo="Un articolo di esempio", contenuto="Questo è il contenuto dell'articolo.", autore=nuovo_utente)
