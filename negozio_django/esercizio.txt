@@ -1,0 +1,13 @@
+filtraggio, ordinamento e aggregazioni
+
+1- recupera tutti i prodotti con prezzo tra 10 euro e 100 euro ordinati per prezzo crescente
+2- recupera i prodotti della categoria "Elettronica" che sono in stock, escludendo quelli con prezzo superiore a 500 euro
+3- conta quanti ordini esistono per il prodotto con id=3
+4- calcola il prezzo medio, minimo e massimo di tutti i prodotti in stock
+5- recupera i 5 prodotti più costosi mostrando solo i campi nome e prezzo
+
+
+creare 3 modelli: prodotti, categorie e ordini
+
+N.B. Usa i field lookups come __gte, __lte, __range.
+Per le aggregazioni importa Count, avg, Min, Max da Django.db.models
