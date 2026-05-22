@@ -1,24 +1,72 @@
 from django.db import models
 
-# Create your models here.
-class categoria(models.Model):
-    nome = models.CharField(max_length=100)
 
-    def __str__(self):
-        return self.nome    
+class Categoria(models.Model):
+    nome = models.CharField(
+        max_length=100,
+        verbose_name="Nome categoria"
+    )
 
-class meta(models.Model):
-    nome = models.CharField(max_length=100)
+    class Meta:
+        verbose_name        = "Categoria"
+        verbose_name_plural = "Categorie"
+        ordering            = ['nome']
 
     def __str__(self):
         return self.nome
 
-class prodotto(models.Model):
-    nome = models.CharField(max_length=100)
-    prezzo = models.FloatField()
-    categoria = models.ForeignKey(categoria, on_delete=models.CASCADE)
-    meta = models.ForeignKey(meta, on_delete=models.CASCADE)
+
+class Prodotto(models.Model):
+    nome      = models.CharField(
+        max_length=200,
+        verbose_name="Nome prodotto"
+    )
+    prezzo    = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        verbose_name="Prezzo (€)"
+    )
+    in_stock  = models.BooleanField(
+        default=True,
+        verbose_name="Disponibile"
+    )
+    categoria = models.ForeignKey(
+        Categoria,
+        on_delete=models.CASCADE,
+        related_name='prodotti',
+        verbose_name="Categoria"
+    )
+
+    class Meta:
+        verbose_name        = "Prodotto"
+        verbose_name_plural = "Prodotti"
+        ordering            = ['prezzo']
 
     def __str__(self):
-        return self.nome    
+        return f"{self.nome} — {self.prezzo}€"
+
+
+class Ordine(models.Model):
+    prodotto = models.ForeignKey(
+        Prodotto,
+        on_delete=models.CASCADE,
+        related_name='ordini',
+        verbose_name="Prodotto"
+    )
+    quantita = models.PositiveIntegerField(
+        default=1,
+        verbose_name="Quantità"
+    )
+    data     = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name="Data ordine"
+    )
+
+    class Meta:
+        verbose_name        = "Ordine"
+        verbose_name_plural = "Ordini"
+        ordering            = ['-data']    # ordini più recenti prima
+
+    def __str__(self):
+        return f"Ordine #{self.id} — {self.prodotto.nome}" 
     
