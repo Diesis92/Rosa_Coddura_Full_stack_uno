@@ -8,28 +8,31 @@ class Categoria(models.Model):
     )
 
     class Meta:
-        verbose_name        = "Categoria"
+        verbose_name = "Categoria"
         verbose_name_plural = "Categorie"
-        ordering            = ['nome']
+        ordering = ['nome']
 
     def __str__(self):
         return self.nome
 
 
 class Prodotto(models.Model):
-    nome      = models.CharField(
+    nome = models.CharField(
         max_length=200,
         verbose_name="Nome prodotto"
     )
-    prezzo    = models.DecimalField(
+
+    prezzo = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         verbose_name="Prezzo (€)"
     )
-    in_stock  = models.BooleanField(
+
+    in_stock = models.BooleanField(
         default=True,
         verbose_name="Disponibile"
     )
+
     categoria = models.ForeignKey(
         Categoria,
         on_delete=models.CASCADE,
@@ -38,35 +41,57 @@ class Prodotto(models.Model):
     )
 
     class Meta:
-        verbose_name        = "Prodotto"
+        verbose_name = "Prodotto"
         verbose_name_plural = "Prodotti"
-        ordering            = ['prezzo']
+        ordering = ['prezzo']
 
     def __str__(self):
         return f"{self.nome} — {self.prezzo}€"
 
 
 class Ordine(models.Model):
-    prodotto = models.ForeignKey(
+
+    prodotti = models.ManyToManyField(
         Prodotto,
-        on_delete=models.CASCADE,
+        through='OrdineProdotto',
         related_name='ordini',
-        verbose_name="Prodotto"
+        verbose_name="Prodotti"
     )
-    quantita = models.PositiveIntegerField(
-        default=1,
-        verbose_name="Quantità"
-    )
-    data     = models.DateTimeField(
+
+    data = models.DateTimeField(
         auto_now_add=True,
         verbose_name="Data ordine"
     )
 
     class Meta:
-        verbose_name        = "Ordine"
+        verbose_name = "Ordine"
         verbose_name_plural = "Ordini"
-        ordering            = ['-data']    # ordini più recenti prima
+        ordering = ['-data']
 
     def __str__(self):
-        return f"Ordine #{self.id} — {self.prodotto.nome}" 
-    
+        return f"Ordine #{self.id}"
+
+
+class OrdineProdotto(models.Model):
+
+    ordine = models.ForeignKey(
+        Ordine,
+        on_delete=models.CASCADE
+    )
+
+    prodotto = models.ForeignKey(
+        Prodotto,
+        on_delete=models.CASCADE
+    )
+
+    quantita = models.PositiveIntegerField(
+        default=1,
+        verbose_name="Quantità"
+    )
+
+    class Meta:
+        verbose_name = "Ordine Prodotto"
+        verbose_name_plural = "Ordini Prodotti"
+
+    def __str__(self):
+        return f"{self.ordine} - {self.prodotto} x {self.quantita}"
