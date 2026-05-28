@@ -393,9 +393,11 @@ from catalogo.models import Artista, Album, Canzone
 ```
 
 ### Query 1 — Tutti gli album dal più recente al più antico
-
+creare l'istanza rallenta la query. Meglio scrivere direttamente la query set
 ```python
 Album.objects.all().order_by('-anno')
+Oppure Album.object.All
+for o in Album
 ```
 
 Il `-` davanti al campo inverte l'ordinamento (decrescente). Senza `-` sarebbe crescente.
@@ -518,3 +520,49 @@ Gli album aggiornati sono: `Kind of Blue` (1959), `A Love Supreme` (1965), `Sgt.
 | `__lt` | Minore di | `filter(anno__lt=1970)` |
 | `__in` | Valore in una lista | `filter(nome__in=["Coltrane", "Davis"])` |
 | `__icontains` | Contiene (case insensitive) | `filter(nome__icontains='queen')` |
+
+🧠 QUERYSET vs SQL + VARIABILI
++----------------------+----------------------------------+------------------------------------------+----------------------+
+| OPERAZIONE           | DJANGO ORM                       | SQL                                      | DOVE                 |
++----------------------+----------------------------------+------------------------------------------+----------------------+
+| Tutti                | Artista.objects.all()           | SELECT * FROM artista;                   | Django / Views       |
+| Uno                  | Artista.objects.get(id=1)       | SELECT * FROM artista WHERE id=1;       | Django / Views       |
+| Filtro               | Album.objects.filter(anno=2020) | SELECT * FROM album WHERE anno=2020;    | Django / Views       |
+| Primo                | Artista.objects.first()         | SELECT * FROM artista LIMIT 1;          | Django / Views       |
+| Conteggio            | Artista.objects.count()         | SELECT COUNT(*) FROM artista;           | Django / Views       |
++----------------------+----------------------------------+------------------------------------------+----------------------+
+🔗 ONE-TO-MANY
++---------------------------+------------------------------------+---------------------------------------------------+----------------------+
+| OPERAZIONE                | DJANGO ORM                         | SQL                                               | DOVE                 |
++---------------------------+------------------------------------+---------------------------------------------------+----------------------+
+| Album di artista          | artista.albums.all()              | SELECT * FROM album WHERE artista_id=1;          | Django / Views       |
+| Artista di album          | album.artista                     | SELECT * FROM artista WHERE id=album.artista_id; | Django / Views       |
+| Canzoni di album          | album.canzoni.all()               | SELECT * FROM canzone WHERE album_id=1;          | Django / Views       |
++---------------------------+------------------------------------+---------------------------------------------------+----------------------+
+🔁 ONE-TO-ONE
++-----------------------+-------------------------+---------------------------------------------+----------------------+
+| OPERAZIONE            | DJANGO ORM              | SQL                                         | DOVE                 |
++-----------------------+-------------------------+---------------------------------------------+----------------------+
+| Profilo artista       | artista.profilo         | SELECT * FROM profilo WHERE artista_id=1;  | Django / Views       |
+| Artista da profilo    | profilo.artista         | SELECT * FROM artista WHERE id=...;        | Django / Views       |
++-----------------------+-------------------------+---------------------------------------------+----------------------+
+🔥 MANY-TO-MANY (Canzone ↔ Tag)
++--------------------------+---------------------------------------+-----------------------------------------------+----------------------+
+| OPERAZIONE               | DJANGO ORM                            | SQL                                           | DOVE                 |
++--------------------------+---------------------------------------+-----------------------------------------------+----------------------+
+| Tag di canzone           | canzone.tags.all()                   | JOIN tabella ponte                            | Django / Views       |
+| Canzoni di tag           | tag.canzoni.all()                    | JOIN tabella ponte                            | Django / Views       |
+| Aggiungi relazione       | canzone.tags.add(tag)                | INSERT INTO ponte                             | Django / Views       |
+| Sostituisci relazioni    | canzone.tags.set([...])              | DELETE + INSERT                               | Django / Views       |
+| Filtra per tag           | Canzone.objects.filter(tags__nome=..) | JOIN su 3 tabelle                             | Django / Views       |
++--------------------------+---------------------------------------+-----------------------------------------------+----------------------+
+⚡ JOIN OTTIMIZZATI
++--------------------------+----------------------------------+------------------------------+----------------------+
+| OPERAZIONE               | DJANGO ORM                       | SQL                          | DOVE                 |
++--------------------------+----------------------------------+------------------------------+----------------------+
+| FK join veloce           | select_related('artista')        | INNER JOIN                   | Django / Views       |
+| M2M efficiente           | prefetch_related('tags')         | 2 query separate            | Django / Views       |
++--------------------------+----------------------------------+------------------------------+----------------------+
+🧠 IDEA CHIAVE
+QuerySet = OGGETTO salvabile in variabile
+SQL = linguaggio del database (non salvabile in Python)
