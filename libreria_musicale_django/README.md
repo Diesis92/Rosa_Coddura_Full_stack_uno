@@ -1,5 +1,13 @@
 # Libreria Musicale — Django Project
 
+Definire i Model di una libreria musicale 
+Una libreria musicale ha bisogno di gestire artisti, album e canzoni. Completate la definizione dei tre Model django secondo le specifiche seguenti:
+1.	Artista:nome (testo,max 150 car.) nazionalita(testo,max 100 car., opzionale), biografia(testo lungo opzionale), data_debutto(data, opzionale)
+2.	Album: titolo(testo, max 200 car.), artista(ForeignKey: un album ha un solo artista, proteggere l’artista dalla cancellazione), anno(intero), genere(choices: Rock/Pop/Jazz/Classica/Altro, ci vorrebbe un altro modello però)
+3.	Canzone:titolo (testo, max 200 car.), album(ForeignKey con cancellazione a cascata), durata_secondi(intero), traccia(intero—numero di traccia nell’album)
+4.	Tutti e tre: metodo__str__ significativo e classe Meta con ordinamento appropriato.
+
+
 ## Indice
 1. [Inizializzazione del progetto](#1-inizializzazione-del-progetto)
 2. [Struttura del progetto](#2-struttura-del-progetto)
