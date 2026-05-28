@@ -71,7 +71,7 @@ class Canzone(models.Model):
     #OneToOne un artista ha un profilo dettagliato: Se si volesse aggiungere un modello ProfiloArtista per memorizzare informazioni dettagliate su un artista, si potrebbe creare una relazione OneToOne tra Artista e ProfiloArtista, poiché ogni artista avrebbe un solo profilo dettagliato e ogni profilo sarebbe associato a un solo artista.
 
 class ProfiloArtista(models.Model):
-    artista = models.OneToOneField(Artista, on_delete=models.CASCADE, related_name='profilo')
+    artista = models.OneToOneField(Artista, on_delete=models.CASCADE, related_name='profilo') #il nome è meglio che sia esteso tra le due relazioni, così è più chiaro quando si accede al profilo di un artista con artista.profilo
     dettagli = models.TextField(blank=True)
 
     def __str__(self):
