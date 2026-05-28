@@ -23,6 +23,13 @@ Una libreria musicale ha bisogno di gestire artisti, album e canzoni. Completate
 ## 1. Inizializzazione del progetto
 
 ### Creare il progetto Django
+Creare ambiente python:
+1- python -m venv venv
+2- .\venv\Scripts\Activate.ps1
+Installare Django
+1-pip install django
+Runnare Django
+1-python manage.py runserver
 ```bash
 django-admin startproject config .
 ```
