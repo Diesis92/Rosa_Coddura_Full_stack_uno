@@ -7,9 +7,8 @@ class Artista(models.Model):
     biografia = models.TextField(blank=True)
     data_debutto = models.DateField(null=True, blank=True)
     
-
     def __str__(self):
-        return f"{self.nome} - {self.nazionalita} - {self.biografia} - {self.data_debutto} - Album pubblicati: {self.albums.count()}"
+        return f"{self.nome} ({self.nazionalita}) - Album: {self.albums.count()}"
     
 
     class Meta:
@@ -29,6 +28,7 @@ class Album(models.Model):
         ('Altro', 'Altro'),
     ]
     genere = models.CharField(max_length=10, choices=GENERE_CHOICES, default='Altro', verbose_name="Genere")
+    disponibile = models.BooleanField(default=True) 
 
     def __str__(self):
         return f"{self.titolo} - {self.artista.nome} - {self.anno} - {self.genere}"
