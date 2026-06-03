@@ -1,0 +1,34 @@
+# =============================================================================
+# 🌐 URL COMPLETI (da mettere nel browser)
+# =============================================================================
+#
+# HOME
+# http://127.0.0.1:8000/catalogo/
+#
+# ARTISTI (JSON)
+# http://127.0.0.1:8000/catalogo/artisti/
+#
+# ALBUM LISTA (JSON - FBV)
+# http://127.0.0.1:8000/catalogo/albums/
+#
+# ALBUM LISTA (HTML - CBV)
+# http://127.0.0.1:8000/catalogo/albums/list/
+#
+# ALBUM DETTAGLIO (HTML - CBV)
+# http://127.0.0.1:8000/catalogo/albums/1/
+# http://127.0.0.1:8000/catalogo/albums/2/
+# http://127.0.0.1:8000/catalogo/albums/3/
+#
+# ALBUM DETTAGLIO (JSON - FBV)
+# http://127.0.0.1:8000/catalogo/album/1/
+# http://127.0.0.1:8000/catalogo/album/2/
+#
+# REDIRECT HOME
+# http://127.0.0.1:8000/catalogo/redirect/
+#
+# =============================================================================
+# classe base per tutte le view
+# class ArtistaList(Listview):
+#     model = Artista
+#     template_name = 'artista_list.html'
+#     context_object_name = 'artisti'

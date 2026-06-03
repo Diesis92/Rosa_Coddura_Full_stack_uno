@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dettaglio Album</title>
+</head>
+<body>
+<h1>Dettaglio Album</h1>
+
+<p><strong>Titolo:</strong> {{ album.titolo }}</p>
+<p><strong>Artista:</strong> {{ album.artista.nome }}</p>
+<p><strong>Anno:</strong> {{ album.anno }}</p>
+
+<a href="{% url 'catalogo:album-list-cbv' %}">← Torna alla lista</a>
+</body>
+</html>

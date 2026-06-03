@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Album</title>
+</head>
+<body>
+
+<h1>Lista Album</h1>
+
+<ul>
+    {% for album in albums %}
+        <li>
+            {{ album.titolo }} - {{ album.artista.nome }}
+        </li>
+    {% endfor %}
+</ul>
+
+<!-- Detail View -->
+<h1>Dettaglio Album</h1>
+{% if album %}
+    <p><strong>Titolo:</strong> {{ album.titolo }}</p>
+    <p><strong>Artista:</strong> {{ album.artista.nome }}</p>
+    <p><strong>Data di Pubblicazione:</strong> {{ album.data_pubblicazione }}</p>
+{% else %}
+    <p>Nessun album selezionato.</p>
+{% endif %} 
+</body>
+</html>
