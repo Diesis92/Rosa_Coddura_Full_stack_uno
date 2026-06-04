@@ -121,6 +121,8 @@
 
 
 # ----------------------------------------------------------------------------------
+#applicare il decoratore @login_required alle view che richiedono autenticazione, ad esempio:
+
 
 from django.http import (
     HttpResponse,
@@ -128,9 +130,25 @@ from django.http import (
     HttpResponseRedirect,
     HttpResponseNotAllowed,
 )
+
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
+from functools import wraps
+
+from asgiref.sync import iscoroutinefunction
+
+from django.middleware.cache import CacheMiddleware
+from django.utils.cache import add_never_cache_headers, patch_cache_control
+from django.utils.decorators import decorator_from_middleware_with_args
+from django.views.decorators.cache import cache_page
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
+from django.views.decorators.http import require_POST, require_http_methods
+from .models import Commento
 from django.views import View
 from .models import Artista, Album, Canzone
+
 
 
 def home(request):
@@ -187,4 +205,41 @@ class AlbumDetailView(View):
         album = get_object_or_404(Album, id=pk)
         return render(request, 'catalogo/album_detail.html', {
             'album': album
+        })
+    
+
+
+#esercizio 1: Proteggi una view
+@login_required(login_url='/accounts/login/')
+def profilo_utente(request):
+    # mostra il profilo dell'utente autenticato
+    context = {
+        'utente': request.user
+    }
+    return render(request, 'catalogo/profilo.html', context)
+
+#esercizio 2 cache
+@cache_page(60 * 15, key_prefix='homepage')  # Mette in cache la pagina per 15 minuti
+def homepage(request):
+    return render(request, 'catalogo/homepage.html')
+
+#esercizio 3 metodi HTTP con endpoint sicuro che accetta solo POST per eliminare un commento
+@require_POST
+def elimina_commento(request, commento_id):
+    commento = get_object_or_404(Commento, id=commento_id)
+    commento.delete()
+    return JsonResponse({'status': 'success'})
+
+#esercizio 4 CBV con method decorator dashboard protetta da login_required
+
+@method_decorator(require_http_methods(["GET", "POST"]), name='dispatch')
+@method_decorator(login_required, name='dispatch')
+class ReportView(View):
+
+    def get(self, request):
+        return render(request, 'report.html')
+
+    def post(self, request):
+        return render(request, 'report.html', {
+            'message': 'POST ricevuto'
         })

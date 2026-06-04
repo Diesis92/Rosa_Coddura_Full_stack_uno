@@ -1,0 +1,21 @@
+Esercizio 1: base: proteggi una view 
+Crea una view chiamata profilo_utente che restituisce il template'profilo.html' con il contesto '{'utente':request.user}'.
+Applica il decoratore corretto per fare in modo che solo gli utenti autenticati possono accedervi. Se non autenticati,
+devono essere reindirizzati a '/accounts/login/'
+
+Esercizio 2: Cache: otimizza una view pubblica
+Hai una view 'Homepage' che esegue query pesantial database per recuperare articoli in evidenza.
+Applica il decoratore di cache appropriato per memorizzare la risposta per 10 minuti. Assicurati che la cache vari in base
+ai cookie di sessione
+
+Esercizio 3:Metodi HTTP endpoint sicuro
+Crea una view 'elimina_commento' che accetta solo richieste Post. SE arriva una richiesta get deve restituire  automaticamente
+un errore 405 method not allowed. Usa il decoratore più appropriato.
+
+Esercizio 4 CBV con method_decorator:dashboard protetta
+Hai una Class-Based View 'ReportView' con metodo get e post. Applica @login_required in modo che entrambi i metodi
+siano protetti usando @method_decorator sul metodo dispatch. Aggiungi anche @require_http_methods([get, post]) per limitare i metodo consentiti
+
+Esercizio 5 Avanzato decoratore personalizzato
+Scrivi un decoratore personalizzato chiamato '@solo_staff' che controlla se 'request.user.is_staff' è True. Se l'utente non è staff, restituisce un
+'HttpResponseForbidden' con il messaggio 'accesso riservato solo allo staff'. Usa un functools.wraps'per preservare i metadati della funzione decorata

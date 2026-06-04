@@ -1,4 +1,6 @@
 from django.urls import path
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from . import views
 
 app_name = 'catalogo'  # ← mancava
@@ -11,4 +13,5 @@ urlpatterns = [
     path('redirect/',             views.redirect_home,           name='redirect-home'),
     path('albums/list/',          views.AlbumListView.as_view(), name='album-list-cbv'),
     path("albums/<int:pk>/",views.AlbumDetailView.as_view(),     name="album-detail"),
+    path('dashboard/',login_required(views.DashboardView.as_view()), name='dashboard'),
 ]
