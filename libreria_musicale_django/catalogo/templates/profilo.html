@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Profilo utente</title>
+</head>
+<body>
+
+    <h1>Profilo utente</h1>
+
+    <p><strong>Username:</strong> {{ utente.username }}</p>
+    <p><strong>Email:</strong> {{ utente.email }}</p>
+
+    {% if utente.is_staff %}
+        <p>Ruolo: Staff</p>
+    {% else %}
+        <p>Ruolo: Utente standard</p>
+    {% endif %}
+
+    <hr>
+
+    <p><a href="/catalogo/">⬅ Torna alla home</a></p>
+
+</body>
+</html>

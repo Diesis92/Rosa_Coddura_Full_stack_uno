@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Report</title>
+</head>
+<body>
+
+<h1>Dashboard Report</h1>
+
+<p>Benvenuto nella dashboard protetta.</p>
+
+<hr>
+
+<form method="POST">
+    {% csrf_token %}
+    <button type="submit">Invia POST</button>
+</form>
+
+{% if message %}
+    <p><strong>{{ message }}</strong></p>
+{% endif %}
+
+</body>
+</html>

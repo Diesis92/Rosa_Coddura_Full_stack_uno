@@ -1,0 +1,11 @@
+http://127.0.0.1:8000/catalogo/
+http://127.0.0.1:8000/catalogo/artisti/
+http://127.0.0.1:8000/catalogo/albums/
+http://127.0.0.1:8000/catalogo/albums/list/
+http://127.0.0.1:8000/catalogo/album/1/
+http://127.0.0.1:8000/catalogo/albums/1/
+http://127.0.0.1:8000/catalogo/dashboard/
+http://127.0.0.1:8000/accounts/login/
+http://127.0.0.1:8000/catalogo/profilo/
+http://127.0.0.1:8000/catalogo/redirect/
+http://127.0.0.1:8000/catalogo/commenti/1/elimina/

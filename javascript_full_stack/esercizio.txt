@@ -1,0 +1,4 @@
+1- dichiara con const il tuo nome e con let la tua eta
+2- Costruisci con un template iteral la frase:Mi chiamo ... e ho anni..." e stampala in console
+3- Prova in console cosa restituisce 5 == "5" e 5 === "5". Spiega a parole la differenza
+4- Verifica con un if se la stringa vuota è truthy o falsy 

@@ -134,106 +134,118 @@ from django.http import (
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
-from functools import wraps
-
-from asgiref.sync import iscoroutinefunction
-
-from django.middleware.cache import CacheMiddleware
-from django.utils.cache import add_never_cache_headers, patch_cache_control
-from django.utils.decorators import decorator_from_middleware_with_args
 from django.views.decorators.cache import cache_page
-from django.http import JsonResponse
-from django.shortcuts import get_object_or_404
 from django.views.decorators.http import require_POST, require_http_methods
-from .models import Commento
 from django.views import View
-from .models import Artista, Album, Canzone
+
+from .models import Artista, Album, Commento
+
+
+# ─────────────────────────────────────────────
+# FUNZIONI BASE
+# ─────────────────────────────────────────────
+
+# def home(request):
+#     if request.method != 'GET':
+#         return HttpResponseNotAllowed(['GET'])
+#     return HttpResponse("<h1>Benvenuto nella Libreria Musicale</h1>")
+
+# def homepage(request):
+#     return render(request, 'catalogo/homepage.html')
+
+
+# def artista_list(request):
+#     if request.method != 'GET':
+#         return HttpResponseNotAllowed(['GET'])
+
+#     artisti = Artista.objects.all()
+#     data = [{'id': a.id, 'nome': a.nome} for a in artisti]
+#     return JsonResponse(data, safe=False)
+
+
+# def album_list(request):
+#     if request.method != 'GET':
+#         return HttpResponseNotAllowed(['GET'])
+
+#     albums = Album.objects.all()
+#     data = [{
+#         'id': a.id,
+#         'titolo': a.titolo,
+#         'artista': a.artista.nome,
+#         'anno': a.anno
+#     } for a in albums]
+
+#     return JsonResponse(data, safe=False)
+
+
+# def album_detail(request, album_id):
+#     if request.method != 'GET':
+#         return HttpResponseNotAllowed(['GET'])
+
+#     album = get_object_or_404(Album, id=album_id)
+
+#     return JsonResponse({
+#         'id': album.id,
+#         'titolo': album.titolo,
+#         'artista': album.artista.nome,
+#         'anno': album.anno,
+#     })
+
+
+# def redirect_home(request):
+#     if request.method != 'GET':
+#         return HttpResponseNotAllowed(['GET'])
+
+#     return HttpResponseRedirect('/catalogo/')
 
 
 
-def home(request):
-    if request.method != 'GET':
-        return HttpResponseNotAllowed(['GET'])
-    return HttpResponse("<h1>Benvenuto nella Libreria Musicale</h1>")
+
+# class AlbumListView(View):
+#     def get(self, request):
+#         albums = Album.objects.all()
+#         return render(request, 'catalogo/album_list.html', {
+#             'albums': albums
+#         })
 
 
-def artista_list(request):
-    if request.method != 'GET':
-        return HttpResponseNotAllowed(['GET'])
-    artisti = Artista.objects.all()
-    data = [{'id': a.id, 'nome': a.nome} for a in artisti]
-    return JsonResponse(data, safe=False)
+# class AlbumDetailView(View):
+#     def get(self, request, pk):
+#         album = get_object_or_404(Album, id=pk)
+#         return render(request, 'catalogo/album_detail.html', {
+#             'album': album
+#         })
 
 
-def album_list(request):
-    if request.method != 'GET':
-        return HttpResponseNotAllowed(['GET'])
-    albums = Album.objects.all()
-    data = [{'id': a.id, 'titolo': a.titolo,
-             'artista': a.artista.nome, 'anno': a.anno}
-            for a in albums]
-    return JsonResponse(data, safe=False)
 
 
-def album_detail(request, album_id):
-    if request.method != 'GET':
-        return HttpResponseNotAllowed(['GET'])
-    album = get_object_or_404(Album, id=album_id)
-    return JsonResponse({
-        'id': album.id,
-        'titolo': album.titolo,
-        'artista': album.artista.nome,
-        'anno': album.anno,
+@login_required(login_url='/accounts/login/')
+def profilo_utente(request):
+    return render(request, 'catalogo/profilo.html', {
+        'utente': request.user
     })
 
 
-def redirect_home(request):
-    if request.method != 'GET':
-        return HttpResponseNotAllowed(['GET'])
-    return HttpResponseRedirect('/catalogo/')
 
 
-class AlbumListView(View):
-    def get(self, request):
-        albums = Album.objects.all()
-        context = {'albums': albums}
-        return render(request, 'catalogo/album_list.html', context)
-    
-#DetailView
-class AlbumDetailView(View):
-    def get(self, request, pk):
-        album = get_object_or_404(Album, id=pk)
-        return render(request, 'catalogo/album_detail.html', {
-            'album': album
-        })
-    
-
-
-#esercizio 1: Proteggi una view
-@login_required(login_url='/accounts/login/')
-def profilo_utente(request):
-    # mostra il profilo dell'utente autenticato
-    context = {
-        'utente': request.user
-    }
-    return render(request, 'catalogo/profilo.html', context)
-
-#esercizio 2 cache
-@cache_page(60 * 15, key_prefix='homepage')  # Mette in cache la pagina per 15 minuti
+@cache_page(60 * 10, key_prefix='homepage')
 def homepage(request):
     return render(request, 'catalogo/homepage.html')
 
-#esercizio 3 metodi HTTP con endpoint sicuro che accetta solo POST per eliminare un commento
+
+
+
 @require_POST
 def elimina_commento(request, commento_id):
     commento = get_object_or_404(Commento, id=commento_id)
     commento.delete()
     return JsonResponse({'status': 'success'})
 
-#esercizio 4 CBV con method decorator dashboard protetta da login_required
 
-@method_decorator(require_http_methods(["GET", "POST"]), name='dispatch')
+
+
 @method_decorator(login_required, name='dispatch')
+@method_decorator(require_http_methods(["GET", "POST"]), name='dispatch')
 class ReportView(View):
 
     def get(self, request):
