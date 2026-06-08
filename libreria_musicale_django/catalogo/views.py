@@ -154,67 +154,67 @@ from .models import Artista, Album, Commento
 #     return render(request, 'catalogo/homepage.html')
 
 
-# def artista_list(request):
-#     if request.method != 'GET':
-#         return HttpResponseNotAllowed(['GET'])
+def artista_list(request):
+    if request.method != 'GET':
+        return HttpResponseNotAllowed(['GET'])
 
-#     artisti = Artista.objects.all()
-#     data = [{'id': a.id, 'nome': a.nome} for a in artisti]
-#     return JsonResponse(data, safe=False)
-
-
-# def album_list(request):
-#     if request.method != 'GET':
-#         return HttpResponseNotAllowed(['GET'])
-
-#     albums = Album.objects.all()
-#     data = [{
-#         'id': a.id,
-#         'titolo': a.titolo,
-#         'artista': a.artista.nome,
-#         'anno': a.anno
-#     } for a in albums]
-
-#     return JsonResponse(data, safe=False)
+    artisti = Artista.objects.all()
+    data = [{'id': a.id, 'nome': a.nome} for a in artisti]
+    return JsonResponse(data, safe=False)
 
 
-# def album_detail(request, album_id):
-#     if request.method != 'GET':
-#         return HttpResponseNotAllowed(['GET'])
+def album_list(request):
+    if request.method != 'GET':
+        return HttpResponseNotAllowed(['GET'])
 
-#     album = get_object_or_404(Album, id=album_id)
+    albums = Album.objects.all()
+    data = [{
+        'id': a.id,
+        'titolo': a.titolo,
+        'artista': a.artista.nome,
+        'anno': a.anno
+    } for a in albums]
 
-#     return JsonResponse({
-#         'id': album.id,
-#         'titolo': album.titolo,
-#         'artista': album.artista.nome,
-#         'anno': album.anno,
-#     })
-
-
-# def redirect_home(request):
-#     if request.method != 'GET':
-#         return HttpResponseNotAllowed(['GET'])
-
-#     return HttpResponseRedirect('/catalogo/')
+    return JsonResponse(data, safe=False)
 
 
+def album_detail(request, album_id):
+    if request.method != 'GET':
+        return HttpResponseNotAllowed(['GET'])
+
+    album = get_object_or_404(Album, id=album_id)
+
+    return JsonResponse({
+        'id': album.id,
+        'titolo': album.titolo,
+        'artista': album.artista.nome,
+        'anno': album.anno,
+    })
 
 
-# class AlbumListView(View):
-#     def get(self, request):
-#         albums = Album.objects.all()
-#         return render(request, 'catalogo/album_list.html', {
-#             'albums': albums
-#         })
+def redirect_home(request):
+    if request.method != 'GET':
+        return HttpResponseNotAllowed(['GET'])
+
+    return HttpResponseRedirect('/catalogo/')
 
 
-# class AlbumDetailView(View):
-#     def get(self, request, pk):
-#         album = get_object_or_404(Album, id=pk)
-#         return render(request, 'catalogo/album_detail.html', {
-#             'album': album
-#         })
+
+
+class AlbumListView(View):
+    def get(self, request):
+        albums = Album.objects.all()
+        return render(request, 'catalogo/album_list.html', {
+            'albums': albums
+        })
+
+
+class AlbumDetailView(View):
+    def get(self, request, pk):
+        album = get_object_or_404(Album, id=pk)
+        return render(request, 'catalogo/album_detail.html', {
+            'album': album
+        })
 
 
 
@@ -226,7 +226,15 @@ def profilo_utente(request):
     })
 
 
-
+#mixin
+#form django.core.expceptions import PermissionDenied
+#from django.contrib.auth.mixins import AccessMixin
+# class LoginRequiredMixin(AccessMixin):
+#     """Verifica che l'utente sia autenticato, altrimenti reindirizza alla pagina di login."""
+#     def dispatch(self, request, *args, **kwargs):#intercetta tutte le richieste (GET, POST, ecc.) e verifica l'autenticazione prima di delegarla ai metodi della view (get, post, ecc.)
+#         if not request.user.is_authenticated: #controlla se l'utente è autenticato. Se non lo è, chiama handle_no_permission() che di default reindirizza alla pagina di login.
+#             return self.handle_no_permission()
+#         return super().dispatch(request, *args, **kwargs) #se l'utente è autenticato, chiama il metodo dispatch() della classe base (AccessMixin) che a sua volta chiama il metodo dispatch() della view originale (ad esempio, AlbumListView) che gestisce la richiesta normalmente.
 
 @cache_page(60 * 10, key_prefix='homepage')
 def homepage(request):
