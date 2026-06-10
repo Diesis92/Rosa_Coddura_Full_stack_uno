@@ -2,3 +2,331 @@
 2- Costruisci con un template iteral la frase:Mi chiamo ... e ho anni..." e stampala in console
 3- Prova in console cosa restituisce 5 == "5" e 5 === "5". Spiega a parole la differenza
 4- Verifica con un if se la stringa vuota è truthy o falsy 
+
+controllo di flusso 
+
+in python
+
+if eta >= 18:
+    stato = 'maggiorenne';
+else:
+    stato = 'minorenne';
+
+
+ternario
+stato = 'ok'if eta >=18 else 'no';
+
+in javascript
+
+if (eta >= 18){
+    stato = 'maggiorenne';
+}else{
+    stato = 'minorenne';
+}
+
+ternario
+stato = eta >=18? 'ok': 'no';
+
+
+const voti= [7,9,6,8]
+
+for (const v of voti) {  for of simile a for (each) di py
+    console.log(v)
+}
+
+for (let i=0; i<voti.length; i++){ inizializzaione, controllo e incremento(o decremento)
+    console.log(i,voti[i]);
+}
+
+switch(giorno){
+    case 'lun':
+    case 'mar':
+        console.log('inizio settimana);
+        break;
+    case 'sab':
+    case 'dom':
+        console.log('weekend);
+        break;// senza l'istruzione prosegue anche se il caso che cercavamo l'abbiamo già trovato
+    default: //altrimenti, tutti gli altri casi
+        console.log('giorno normale');
+}
+
+for(const n of [1,2,3,4,5]){
+    if (n ===3)continue; // salta solo questo giro
+    if(n===5)break;// esce dal ciclo
+    console.log(n);
+}//stampa: 1,2,4
+
+funzioni
+in py
+def somma(a,b):
+    return a+b
+somma(2,3)
+
+in javascript
+function somma(a,b){
+    return a + b;
+};
+
+con funzione anonima
+const somma = function(a,b){
+    return a + b;
+};
+con vue si usano le arrow function
+forma classica:
+const doppio = function(x){
+    return x * 2;
+};
+
+//arrow passo per passo
+const doppio = (x) => {return x*2;};
+
+//se c'è solo un return lo togli
+const doppio = (x) =>x*2;
+
+//un solo parametro niente parentesi
+const doppio = x => x*2;
+
+//valore di default e resto
+
+function saluta(nome='amico){
+    return 'ciao  ${nome}';
+}
+
+saluta();
+saluta('Anna');
+
+//rest raccoglie gli argomenti extra
+function somma(...numeri){
+    let tot = 0;
+    for (const n of numeri) tot+= n;
+    return tot;
+}
+somma(1,2,3,4)
+
+//funzione che si ricorda closure
+
+function creaContatore(){
+    let conteggio = 0; //memoria privata
+    return function(){
+        conteggioi++;
+        return conteggio;
+    };
+}
+const click = creaContatore();
+click() //1
+click() //2
+click() //3
+la reattività di vue si basa su questo principio
+
+//variabile
+
+const globale= 'mi vedono tutti';
+
+function prova(){
+    const locale = 'vivo solo qui dentro';
+    console.log(globale);//ok
+    if(true){
+        const interna = 'solo in questo blocco';
+    }
+    //console.log(interna)//erroe: non esiste
+}
+
+//this (nell'arrow non funziona)
+
+const oggetto= {
+    nome : 'Anna'
+    //funzione normale: 'this' e l'oggetto
+    saluta(){
+        console.log('ciao+this.nome);
+    }
+}
+python
+voti = [7, 9, 6]
+
+voti.append(8)      # aggiunge 8 alla lista
+print(voti[0])      # primo elemento
+
+print(len(voti))    # lunghezza della lista
+
+for v in voti:
+    print(v)        # ciclo corretto
+
+print(8 in voti)    # True o False
+
+javascript
+
+const voti = [7, 9, 6];
+
+voti.push(8);        // aggiunge 8
+
+console.log(voti[0]); // primo elemento
+
+console.log(voti.length); // ATTENZIONE: length non lenght
+
+for (const v of voti) {
+    console.log(v);
+}
+
+console.log(voti.includes(8)); // equivalente di "in" in Python
+
+map, filter e reduce
+
+map
+const prezzi = [10,20,30];
+const conIva = prezzi.map(p => p * 1.22);
+conIva; //[12.2]
+
+filter
+
+const eta=[15,22,17,30,19];
+const adulti =eta.filter(e => e > 18);
+adulti; // [22,30,19]
+
+reduce
+const spese = [12,8,25,5];
+const totale = spese.reduce(
+    acc, x => acc + x, 0
+)
+
+totale; // 50
+
+il dizionario di javascript è un oggetto
+
+const utente = {
+    nome : "Anna";
+    eta : 30
+};
+utente.nome;
+utente.eta;
+
+estrarre con eleganza
+
+const utente ={nome: "Anna", eta:30, citta:"Palermo};
+const nome= utente.nome
+const eta = utente.eta
+
+destructuring in una riga
+const{nome,eta}= utente;
+//funziona anche con gli array
+const[primo,secondo]=[10,20] //tutto ciò serve per vue
+
+ponte tra browser e server:json
+const utente ={nome: "Anna", eta:30};
+const testo= JSON.stringfy(utente);
+'{"nome":"Anna","eta":30}'
+
+al contrario
+const obj = JSON.parse(testo);
+
+console.log(obj.nome); // Anna
+console.log(obj.eta);  // 30
+
+| Metodo   | Azione            |
+| -------- | ----------------- |
+| push     | aggiunge in fondo |
+| pop      | rimuove ultimo    |
+| unshift  | aggiunge in testa |
+| shift    | rimuove primo     |
+| find     | trova primo match |
+| indexOf  | indice elemento   |
+| includes | true/false        |
+| slice    | copia parte array |
+| sort     | ordina array      |
+
+copiare e unire con ...
+
+const a = [1,2]
+const b = [3,4]
+
+const uniti= [...a, ...b] //[1,2,3,4]
+const a = ["ciao"];
+const b = ["mondo"];
+
+const frase = [...a, ...b];
+
+console.log(frase);
+// ["ciao", "mondo"]
+
+la potenza di filter, map e reduce fa una pipeline
+
+
+const prodotti = [
+    { nome: "A", prezzo: 10, attivo: true },
+    { nome: "B", prezzo: 20, attivo: false },
+    { nome: "C", prezzo: 30, attivo: true }
+];
+
+const totale = prodotti
+    .filter(p => p.attivo)
+    .map(p => ({ ...p, prezzo: p.prezzo * 1.1 }))
+    .reduce((acc, p) => acc + p.prezzo, 0);
+
+console.log(totale);
+
+Trovare il massimo in una lista
+
+const voti = [7, 9, 6, 10, 8];
+
+let max = voti[0];
+
+for (const v of voti) {
+    if (v > max) max = v;
+}
+
+console.log(max);
+
+
+Dom ed eventi
+const titolo = document.querySelector('#titolo') //per id il più preciso
+const righe = document.querySelectorAll('.riga') // per classe tutte quelle che la hanno
+const bottone = document.querySelector('button') // per tag
+
+leggere e cambiare i nodi
+const titolo = document.querySelector('#titolo');
+titolo.textContent = 'Nuovo Titolo'
+
+eventi
+
+const bottone = document.querySelector('#vai'); //quando vieni cliccato esegui questa funzione
+bottone.addEventListener('click',()=>){
+    console.log("cliccato!)
+}
+
+input.addEventListener('input',(e)=>){ // l'evento porta informazioni utili 
+    console.log(e.target.value)
+}
+
+
+contatore interattivo
+let conteggio = 0;
+const span = document.querySelector('#valore');
+const bottone = document.querySelector('#piu');
+bottone.addEventListener('click',()=>){
+   conteggio++;
+   span.textContent = conteggio;
+}
+
+costruire la pagina del codice
+
+crea nuovo elemento
+const li = document.createElement('li');
+li.textContent = 'Nuova voce';
+
+lo inserisco nella pagina
+const lista = document.querySelector('#lista');
+lista.appendChild(li);
+
+rimuove elemento
+li.remove()
+
+a cosa puoi reagire:
+| Evento    | Quando scatta        |
+| --------- | -------------------- |
+| click     | click su elemento    |
+| keydown   | pressione tasto      |
+| input     | scrittura in campo   |
+| submit    | invio form           |
+| mouseover | mouse sopra elemento |
+| load      | pagina caricata      |
+

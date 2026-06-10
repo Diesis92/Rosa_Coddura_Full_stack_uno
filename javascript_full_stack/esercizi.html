@@ -1,26 +1,174 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="it">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
-   <script>
-    const nome = "Rosa";
-    let eta = 33;
-    let messaggio = `Ciao, mi chiamo ${nome} e ho ${eta} anni.`;
-    console.log(messaggio);
+  </head>
+  <body>
+    <script>
+          const nome = "Rosa";
+          let eta = 33;
+          let messaggio = `Ciao, mi chiamo ${nome} e ho ${eta} anni.`;
+          console.log(messaggio);
 
-   console.log(5=="5"); // true
-   console.log(5==="5"); // false
+         console.log(5=="5"); // true
+         console.log(5==="5"); // false
 
-   let stringa = "Ciao";
-   if (stringa === "") {
-       console.log("La stringa è vuota");
-   } else {
-       console.log("La stringa non è vuota");
-   }
-   </script> 
-</body>
+         let stringa = "Ciao";
+         if (stringa === "") {
+             console.log("La stringa è vuota");
+         } else {
+             console.log("La stringa non è vuota");
+         }
+
+      //dato l'array const numeri=[4,7,10,,3,8] scrivi un ciclo for...of che stampi solo i numeri pari
+      //conta usando una variabile let contatore, quanti numeri sono maggiori di 5
+      //riscrivi un if/else che assegna 'pari' o 'dispari' usando l'operatore ternario
+
+     
+
+const numeri = [4, 7, 10, 3, 8];
+
+// Stampa solo i numeri pari
+for (const n of numeri) {
+    if (n % 2 === 0) {
+        console.log(n);
+    }
+}
+
+// Conta quanti numeri sono maggiori di 5
+let contatore = 0;
+
+for (const n of numeri) {
+    if (n > 5) {
+        contatore++;
+    }
+}
+
+console.log(contatore);
+
+// Operatore ternario: pari o dispari
+for (const n of numeri) {
+    const tipo = n % 2 === 0 ? "pari" : "dispari";
+    console.log(`${n} è ${tipo}`);
+}
+
+
+
+
+
+//scrivi una arrow function area=(base,altezza)=> che restituisce l'area di un rettangolo
+const area = (a, b) =>a*b;
+console.logarea(3,4);
+
+//media somma di tutti diviso i valori per esempio 6,7,8,10 diviso i voti
+function media(...voti){
+    let somma = 0;
+    for (const voto of voti){
+        somma += voto;
+    }
+
+    return somma / voti.length;
+}
+
+console.log(media(6,7,8,10))
+
+
+//crea con una closure una funzione creaSaluto(saluto)che restituisce una funzione: creaSaluto("Ciao Anna") e deve dare 'Ciao Anna'
+function creaSaluto(saluto){
+    return (nome) =>  return `${saluto} ${nome}`;
+}
+console.log(creaSaluto("Ciao")("Anna"));
+
+//dato const numeri = [3,8,1,9,4],usa filter per ottenere solo numeri maggiori di 4
+
+filter
+
+const numeri = [3,8,1,9,4]
+
+const superioreAquattro = numeri.filter(n => n >4)
+console.log(superioreAquattro);
+
+
+//usa map per ottenere un array con il quadrato di ogni numero
+
+map
+
+const lista = [10,20,20];
+const quadrato = lista.map(l => l ** 2);
+console.log(quadrato)
+
+//usa reduce per calcolare la somma di tutti i numeri
+
+
+reduce
+
+const numeri = [1,2,3,4,5];
+const sommaNumeri = numeri.reduce(acc, n) => acc+n,0
+
+console.log(sommaNumeri);
+
+
+
+
+// crea un oggetto prodotto con nome, prezzo e disponibile (true/false) poi estrai nome e prezzo con il destructuring
+const prodotti = [
+    { nome: "A", prezzo: 10, attivo: true },
+    { nome: "B", prezzo: 20, attivo: false },
+    { nome: "C", prezzo: 30, attivo: true }
+];
+
+const{nome, prezzo} = prodotti[0];
+
+console.log(nome);
+console.log(prezzo);
+
+//estrazione di più elementi con map
+const prodotti = [
+    { nome: "A", prezzo: 10, attivo: true },
+    { nome: "B", prezzo: 20, attivo: false },
+    { nome: "C", prezzo: 30, attivo: true }
+];
+
+const dati = prodotti.map(({ nome, prezzo }) => {
+    return { nome, prezzo };
+});
+
+console.log(dati);
+
+//crea una pagina con un campo di testo e un paragrafo vuoto
+
+
+const campo = document.querySelector('#eco');
+const paragrafo = document.querySelector('#riempi');
+const bottone = document.querySelector('#reset');
+
+// copia in tempo reale
+campo.addEventListener('input', (e) => {
+    paragrafo.textContent = e.target.value;
+});
+
+// bottone reset
+bottone.addEventListener('click', () => {
+    campo.value = "";
+    paragrafo.textContent = "";
+});
+
+// seleziona due elementi con querySelector
+//ascolta l'evento input sul campo e copia in tempo reale ciò che l utente scrive sul paragrafo
+//aggiungi un bottone che, al clic svuota il campo e il paragrafo
+
+    </script>
+    <input id="eco" type="text">
+    <p id="riempi"></p>
+    <button id="reset">Svuota</button>
+
+    -----------------------------------
+
+    
+
+
+
+  </body>
 </html>
