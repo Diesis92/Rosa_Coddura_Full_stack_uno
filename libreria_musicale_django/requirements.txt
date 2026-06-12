@@ -1,0 +1,2 @@
+pip install celery[redis] flower
+pip install django-celery-beat

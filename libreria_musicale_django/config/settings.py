@@ -1,4 +1,6 @@
 from pathlib import Path
+from celery.schedules import crontab
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -14,6 +16,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'catalogo',
+    'myshop'
 ]
 
 MIDDLEWARE = [
@@ -70,3 +73,15 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/catalogo/'
 LOGOUT_REDIRECT_URL = '/catalogo/'
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+
+
+
+
+CELERY_BEAT_SCHEDULE = {
+    "cleanup-notifications-daily": {
+        "task": "myshop.tasks.cleanup_old_notifications",
+        "schedule": crontab(hour=0, minute=0),
+    },
+}

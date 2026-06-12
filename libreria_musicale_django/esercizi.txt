@@ -19,3 +19,8 @@ siano protetti usando @method_decorator sul metodo dispatch. Aggiungi anche @req
 Esercizio 5 Avanzato decoratore personalizzato
 Scrivi un decoratore personalizzato chiamato '@solo_staff' che controlla se 'request.user.is_staff' è True. Se l'utente non è staff, restituisce un
 'HttpResponseForbidden' con il messaggio 'accesso riservato solo allo staff'. Usa un functools.wraps'per preservare i metadati della funzione decorata
+
+#esercizi url
+Scrivi il pattern re_path() per catturare una data nel formato AAAA-MM-GG come parametro nominato "data", associata a una view chiamata ArticoliPerDataView con nome route 
+"articoli_per_data".rmato AAAA-
+
