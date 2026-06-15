@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Titolo di default{% endblock %}</title>
+</head>
+<body>
+    <header>
+        <h1>Acquisto prodotto</h1>
+    </header>
+
+    <main>
+        <form method="POST">
+        {% csrf_token %}
+
+    <div>
+        {{ form.prodotto.label_tag }}
+        {{ form.prodotto }}
+    </div>
+
+    <div>
+        {{ form.quantita.label_tag }}
+        {{ form.quantita }}
+    </div>
+
+    <div>
+        {{ form.codice_sconto.label_tag }}
+        {{ form.codice_sconto }}
+    </div>
+
+    <button type="submit">Acquista</button>
+</form>
+    </main>
+
+    <footer>
+        <p>© 2026 - Mio sito Django</p>
+    </footer>
+</body>
+</html>
