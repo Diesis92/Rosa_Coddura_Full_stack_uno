@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Conferma acquisto</title>
+</head>
+<body>
+
+<h1>Conferma acquisto</h1>
+
+<p>Prodotto: {{ prodotto.nome }}</p>
+<p>Quantità: {{ quantita }}</p>
+<p>Sconto: {{ sconto }}</p>
+<p>Totale: {{ prezzo_totale }}</p>
+
+<a href="{% url 'ecommerce:acquisto_prodotto' %}">
+    Nuovo acquisto
+</a>
+
+</body>
+</html>

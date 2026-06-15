@@ -1,36 +1,52 @@
 from django.shortcuts import render
-from .forms import AcquistoForm
+from decimal import Decimal
 from .models import Prodotto
+from .forms import AcquistoForm
+
 
 def acquisto_prodotto(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         form = AcquistoForm(request.POST)
+
         if form.is_valid():
-            prodotto_selezionato = form.cleaned_data['prodotto']
-            quantita_desiderata = form.cleaned_data['quantita']
-            codice_sconto= form.cleaned_data['codice_sconto']
-            prezzo_unitario = prodotto_selezionato.prezzo
-            prezzo_totale = prezzo_unitario * quantita_desiderata
+            prodotto = form.cleaned_data["prodotto"]
+            quantita = form.cleaned_data["quantita"]
+            codice_sconto = form.cleaned_data["codice_sconto"]
 
+            prezzo_totale = prodotto.prezzo * quantita
 
-            #calcolo sconto
+            sconto = Decimal("0.00")
+
             if codice_sconto:
-                sconto_applicato = prezzo_totale * 0.25
-                prezzo_totale -= sconto_applicato
-            else:
-                sconto_applicato = 0
+                sconto = prezzo_totale * Decimal("0.25")
+                prezzo_totale -= sconto
 
-            prezzo_totale += prezzo_totale * 0.22
+            prezzo_totale += prezzo_totale * Decimal("0.22")
 
-            return render(request, 'conferma_acquisto.html', {
-                'prodotto': prodotto_selezionato,
-                'quantita': quantita_desiderata,
-                'prezzo_totale': prezzo_totale,
-                'sconto': sconto_applicato
+            # NON fare redirect: usiamo render diretto
+            return render(request, "ecommerce/conferma_acquisto.html", {
+                "prodotto": prodotto,
+                "quantita": quantita,
+                "sconto": sconto,
+                "prezzo_totale": prezzo_totale
             })
 
     else:
         form = AcquistoForm()
 
-    return render(request, 'acquisto_prodotto.html', {'form': form})
+    return render(request, "ecommerce/acquisto_prodotto.html", {
+        "form": form
+    })
 
+
+def conferma_acquisto(request):
+    # opzionale: se qualcuno entra direttamente
+    return render(request, "ecommerce/conferma_acquisto.html")
+
+
+def catalogo_prodotti(request):
+    prodotti = Prodotto.objects.all()
+
+    return render(request, "ecommerce/catalogo.html", {
+        "prodotti": prodotti
+    })

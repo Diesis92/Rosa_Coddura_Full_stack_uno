@@ -10,7 +10,7 @@ class Prodotto(models.Model):
         return self.nome
 
 
-class Meta:
-    verbose_name = "Prodotto"
-    verbose_name_plural = "Prodotti"
-    ordering = ['nome']
+    class Meta:
+        verbose_name = "Prodotto"
+        verbose_name_plural = "Prodotti"
+        ordering = ['nome']

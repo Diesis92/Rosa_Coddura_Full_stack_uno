@@ -1,0 +1,127 @@
+
+ESERCIZI AGGIUNTIVI DJANGO 
+
+1) VALIDAZIONE QUANTITA' con clean_quantita()
+A COSA SERVE:
+- Controlla la quantità inserita nel form prima di salvare
+- Evita richieste impossibili (es. comprare 1000 pezzi se ne hai 5)
+
+COME FARE:
+- Nel forms.py crea un metodo clean_quantita
+
+ESEMPIO:
+def clean_quantita(self):
+    quantita = self.cleaned_data.get("quantita")
+    if quantita <= 0:
+        raise forms.ValidationError("Quantità non valida")
+    return quantita
+
+--------------------------------------------------
+
+2) DECREMENTO QUANTITA' + .save()
+A COSA SERVE:
+- Aggiorna il magazzino dopo un acquisto
+
+COME FARE:
+- Nella view dopo validazione:
+- sottrai la quantità e salva il prodotto
+
+ESEMPIO:
+prodotto.quantita_disponibile -= quantita
+prodotto.save()
+
+--------------------------------------------------
+
+3) BADGE "ESAURITO" + FORM DISABILITATO
+A COSA SERVE:
+- Blocca acquisto se prodotto finito
+
+COME FARE:
+- Nel template:
+{% if prodotto.quantita_disponibile == 0 %}
+    <p>ESAURITO</p>
+    <button disabled>Non disponibile</button>
+{% endif %}
+
+--------------------------------------------------
+
+4) CODICE SCONTO con clean_codice_sconto()
+A COSA SERVE:
+- Valida codici sconto nel form
+
+COME FARE:
+- Controlla se codice è valido
+
+ESEMPIO:
+def clean_codice_sconto(self):
+    codice = self.cleaned_data.get("codice_sconto")
+    codici_validi = ["SAVE10", "WELCOME"]
+    if codice and codice not in codici_validi:
+        raise forms.ValidationError("Codice non valido")
+    return codice
+
+--------------------------------------------------
+
+5) VALIDAZIONE TRASVERSALE clean()
+A COSA SERVE:
+- Controlla più campi insieme
+
+ESEMPIO:
+def clean(self):
+    cleaned_data = super().clean()
+    prodotto = cleaned_data.get("prodotto")
+    quantita = cleaned_data.get("quantita")
+
+    if prodotto and quantita:
+        if quantita > prodotto.quantita_disponibile:
+            raise forms.ValidationError("Non disponibile")
+
+    return cleaned_data
+
+--------------------------------------------------
+
+6) LOGIN REQUIRED @login_required
+A COSA SERVE:
+- Protegge le view (solo utenti loggati)
+
+COME FARE:
+from django.contrib.auth.decorators import login_required
+
+@login_required
+def acquisto_prodotto(request):
+    ...
+
+--------------------------------------------------
+
+7) CATEGORIE con ForeignKey
+A COSA SERVE:
+- Ogni prodotto appartiene a una categoria
+
+MODELLO:
+class Categoria(models.Model):
+    nome = models.CharField(max_length=100)
+
+class Prodotto(models.Model):
+    categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
+
+--------------------------------------------------
+
+8) TAG con ManyToManyField
+A COSA SERVE:
+- Un prodotto può avere più tag
+
+MODELLO:
+class Tag(models.Model):
+    nome = models.CharField(max_length=50)
+
+class Prodotto(models.Model):
+    tags = models.ManyToManyField(Tag)
+
+--------------------------------------------------
+"""
+
+file_path = "/mnt/data/guida_django_esercizi.txt"
+with open(file_path, "w", encoding="utf-8") as f:
+    f.write(content)
+
+file_path

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Catalogo Prodotti</title>
+</head>
+<body>
+
+<h1>Catalogo Prodotti</h1>
+
+{% if prodotti %}
+
+    {% for prodotto in prodotti %}
+
+        <hr>
+
+        <h3>{{ prodotto.nome }}</h3>
+
+        <p>{{ prodotto.descrizione }}</p>
+
+        <p>Prezzo: €{{ prodotto.prezzo }}</p>
+
+        <p>Disponibilità: {{ prodotto.quantita_disponibile }}</p>
+
+        <a href="{% url 'ecommerce:acquisto_prodotto' %}">
+            Compra
+        </a>
+
+        <hr>
+
+    {% endfor %}
+
+{% else %}
+
+    <p>Nessun prodotto disponibile</p>
+
+{% endif %}
+
+<br>
+
+<a href="{% url 'ecommerce:acquisto_prodotto' %}">
+    Vai alla pagina acquisto
+</a>
+
+</body>
+</html>
