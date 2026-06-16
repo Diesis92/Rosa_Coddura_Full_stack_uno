@@ -16,3 +16,14 @@ class AcquistoForm(forms.Form):
                     "la quantità selezionata non è disponibile"
                 )
         return self.cleaned_data
+
+    def clean_quantita(self):
+        quantita = self.cleaned_data['quantita']
+
+        if quantita <= 0:
+            raise forms.ValidationError(
+                "La quantità deve maggiore di zero"
+            )
+
+
+
