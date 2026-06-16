@@ -125,3 +125,299 @@ with open(file_path, "w", encoding="utf-8") as f:
     f.write(content)
 
 file_path
+
+----------------SOLUZIONE--------------------------
+
+1️⃣ Validazione quantità con clean_quantita()
+
+Attualmente controlli la quantità nel clean() del form. L'esercizio ti chiede di creare una validazione dedicata.
+
+In forms.py
+class AcquistoForm(forms.Form):
+    prodotto = forms.ModelChoiceField(
+        queryset=Prodotto.objects.all()
+    )
+
+    quantita = forms.IntegerField(min_value=1)
+
+    codice_sconto = forms.CharField(
+        required=False
+    )
+
+    def clean_quantita(self):
+        quantita = self.cleaned_data["quantita"]
+
+        if quantita <= 0:
+            raise forms.ValidationError(
+                "La quantità deve essere maggiore di zero"
+            )
+
+        return quantita
+Perché?
+
+Django esegue automaticamente:
+
+clean_nomecampo()
+
+per validare un singolo campo.
+
+Questa validazione riguarda solo quantita, quindi è più corretto usare clean_quantita() invece di clean().
+
+2️⃣ Decremento quantità + .save()
+
+Attualmente il prodotto non viene realmente acquistato.
+
+Dopo aver validato il form devi aggiornare lo stock.
+
+In views.py
+
+Dopo:
+
+prodotto = form.cleaned_data["prodotto"]
+quantita = form.cleaned_data["quantita"]
+
+aggiungi:
+
+prodotto.quantita_disponibile -= quantita
+prodotto.save()
+Versione completa
+if form.is_valid():
+
+    prodotto = form.cleaned_data["prodotto"]
+    quantita = form.cleaned_data["quantita"]
+
+    prodotto.quantita_disponibile -= quantita
+    prodotto.save()
+Cosa succede?
+
+Prima:
+
+Notebook: 10 pezzi
+
+Acquisto:
+
+3 pezzi
+
+Dopo:
+
+Notebook: 7 pezzi
+3️⃣ Badge "ESAURITO" + form disabilitato
+Nel template catalogo
+{% for prodotto in prodotti %}
+
+<h3>{{ prodotto.nome }}</h3>
+
+{% if prodotto.quantita_disponibile == 0 %}
+    <span>ESAURITO</span>
+{% endif %}
+
+{% endfor %}
+Nel form di acquisto
+
+In views.py
+
+if prodotto.quantita_disponibile == 0:
+    form.fields["quantita"].disabled = True
+
+Oppure direttamente nel template:
+
+{% if prodotto.quantita_disponibile == 0 %}
+    <button disabled>
+        Prodotto esaurito
+    </button>
+{% else %}
+    <button type="submit">
+        Acquista
+    </button>
+{% endif %}
+Scopo
+
+Evitare acquisti di prodotti senza disponibilità.
+
+4️⃣ Codice sconto con clean_codice_sconto()
+
+Attualmente qualsiasi testo applica il 25%.
+
+Bisogna controllare che il codice sia valido.
+
+In forms.py
+def clean_codice_sconto(self):
+
+    codice = self.cleaned_data["codice_sconto"]
+
+    codici_validi = [
+        "SALE25",
+        "WELCOME",
+        "DJANGO"
+    ]
+
+    if codice and codice not in codici_validi:
+        raise forms.ValidationError(
+            "Codice sconto non valido"
+        )
+
+    return codice
+Risultato
+
+Valido:
+
+SALE25
+
+Non valido:
+
+PIPPO123
+
+↓
+
+Codice sconto non valido
+5️⃣ Validazione trasversale con clean()
+
+Serve quando devi confrontare più campi.
+
+Tu lo stai già usando.
+
+Versione migliorata
+def clean(self):
+
+    cleaned_data = super().clean()
+
+    prodotto = cleaned_data.get("prodotto")
+    quantita = cleaned_data.get("quantita")
+
+    if prodotto and quantita:
+
+        if quantita > prodotto.quantita_disponibile:
+
+            raise forms.ValidationError(
+                "Quantità non disponibile"
+            )
+
+    return cleaned_data
+Perché usare clean()?
+
+Perché devi confrontare:
+
+quantita
+VS
+prodotto.quantita_disponibile
+
+cioè due campi diversi.
+
+6️⃣ Login richiesto con @login_required
+
+Import:
+
+from django.contrib.auth.decorators import login_required
+
+Poi:
+
+@login_required
+def acquisto_prodotto(request):
+Risultato
+
+Utente non autenticato:
+
+/acquisto/
+
+↓
+
+redirect automatico al login.
+
+Utente autenticato:
+
+accesso consentito
+7️⃣ Categoria con ForeignKey
+Nuovo model
+class Categoria(models.Model):
+    nome = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.nome
+Modifica Prodotto
+class Prodotto(models.Model):
+
+    nome = models.CharField(max_length=100)
+
+    categoria = models.ForeignKey(
+        Categoria,
+        on_delete=models.CASCADE
+    )
+
+    descrizione = models.TextField()
+    prezzo = models.DecimalField(
+        max_digits=8,
+        decimal_places=2
+    )
+
+    quantita_disponibile = models.PositiveBigIntegerField()
+Significato
+
+Una categoria:
+
+Informatica
+
+può avere:
+
+Mouse
+Monitor
+Notebook
+Tastiera
+
+Relazione:
+
+Categoria 1 ---- N Prodotti
+8️⃣ Tag con ManyToManyField
+Nuovo model
+class Tag(models.Model):
+    nome = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.nome
+Modifica Prodotto
+class Prodotto(models.Model):
+
+    nome = models.CharField(max_length=100)
+
+    tag = models.ManyToManyField(
+        Tag,
+        blank=True
+    )
+
+    descrizione = models.TextField()
+    prezzo = models.DecimalField(
+        max_digits=8,
+        decimal_places=2
+    )
+
+    quantita_disponibile = models.PositiveBigIntegerField()
+Significato
+
+Prodotto:
+
+Notebook ASUS
+
+Tag:
+
+Nuovo
+Scontato
+Gaming
+
+Un prodotto può avere molti tag.
+
+Un tag può appartenere a molti prodotti.
+
+Relazione:
+
+Prodotto N ---- N Tag
+Riassunto veloce esame
+Esercizio	Dove	Scopo
+clean_quantita()	Form	Validare un campo
+clean_codice_sconto()	Form	Validare un campo
+clean()	Form	Confrontare più campi
+save()	View	Salvare nel DB
+decremento quantità	View	Aggiornare stock
+@login_required	View	Proteggere accesso
+ForeignKey	Model	Relazione 1→N
+ManyToManyField	Model	Relazione N→N
+Badge esaurito	Template	Feedback utente
+Form disabilitato	Template/View	Bloccare acquisti
