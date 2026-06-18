@@ -8,7 +8,7 @@
 
     <h1>Acquisto prodotto</h1>
 
-    <form method="POST">
+    <form method="POST" action="">
         {% csrf_token %}
 
         <p>
@@ -25,6 +25,12 @@
             {{ form.codice_sconto.label_tag }}
             {{ form.codice_sconto }}
         </p>
+
+        {% if form.errors %}
+            <div style="color:red;">
+                {{ form.errors }}
+            </div>
+        {% endif %}
 
         <button type="submit">Acquista</button>
     </form>
