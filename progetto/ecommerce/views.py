@@ -11,7 +11,7 @@ def acquisto_prodotto(request):
 
     if request.method == "POST":
         form = AcquistoForm(request.POST)
-
+    #mettere l'url dell'autenticazione e form registrazione e def dispatch e acquisti minimi con lo sconto e validità codice sconto
         if form.is_valid():
             prodotto = form.cleaned_data["prodotto"]
             quantita = form.cleaned_data["quantita"]

@@ -30,7 +30,7 @@ class AcquistoForm(forms.Form):
             )
 
         return quantita
-
+    #clean quantità minima di prodotti per sconto
     def clean_codice_sconto(self):
         codice = self.cleaned_data.get('codice_sconto')
 

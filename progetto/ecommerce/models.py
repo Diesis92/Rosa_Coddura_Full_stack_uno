@@ -9,7 +9,7 @@ class Prodotto(models.Model):
 
     def __str__(self):
         return self.nome
-
+    #estendi
 
     class Meta:
         verbose_name = "Prodotto"
