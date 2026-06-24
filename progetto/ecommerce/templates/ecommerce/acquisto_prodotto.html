@@ -1,43 +1,23 @@
-<!DOCTYPE html>
-<html lang="it">
-<head>
-    <meta charset="UTF-8">
-    <title>Acquisto prodotto</title>
-</head>
-<body>
+{% extends "ecommerce/base.html" %}
 
-    <h1>Acquisto prodotto</h1>
+{% block title %}Acquisto{% endblock %}
 
-    <form method="POST" action="">
-        {% csrf_token %}
+{% block content %}
 
-        <p>
-            {{ form.prodotto.label_tag }}
-            {{ form.prodotto }}
-        </p>
+<h1>Acquisto prodotto</h1>
 
-        <p>
-            {{ form.quantita.label_tag }}
-            {{ form.quantita }}
-        </p>
+<form method="POST">
+    {% csrf_token %}
 
-        <p>
-            {{ form.codice_sconto.label_tag }}
-            {{ form.codice_sconto }}
-        </p>
+    {{ form.as_p }}
 
-        {% if form.errors %}
-            <div style="color:red;">
-                {{ form.errors }}
-            </div>
-        {% endif %}
+    {% if form.errors %}
+        <div style="color:red;">
+            {{ form.errors }}
+        </div>
+    {% endif %}
 
-        <button type="submit">Acquista</button>
-    </form>
+    <button type="submit">Acquista</button>
+</form>
 
-    <p>
-        <a href="#">Torna al catalogo</a>
-    </p>
-
-</body>
-</html>
+{% endblock %}

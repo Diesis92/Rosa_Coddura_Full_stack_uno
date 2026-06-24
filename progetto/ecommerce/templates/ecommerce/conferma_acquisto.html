@@ -1,21 +1,21 @@
-<!DOCTYPE html>
-<html lang="it">
-<head>
-    <meta charset="UTF-8">
-    <title>Conferma acquisto</title>
-</head>
-<body>
+{% extends "ecommerce/base.html" %}
+
+{% block title %}Conferma{% endblock %}
+
+{% block content %}
 
 <h1>Conferma acquisto</h1>
 
-<p>Prodotto: {{ prodotto.nome }}</p>
-<p>Quantità: {{ quantita }}</p>
-<p>Sconto: {{ sconto }}</p>
-<p>Totale: {{ prezzo_totale }}</p>
+<p><strong>Prodotto:</strong> {{ prodotto.nome }}</p>
+
+<p><strong>Quantità:</strong> {{ quantita }}</p>
+
+<p><strong>Sconto:</strong> €{{ sconto }}</p>
+
+<p><strong>Totale:</strong> €{{ prezzo_totale }}</p>
 
 <a href="{% url 'ecommerce:acquisto_prodotto' %}">
     Nuovo acquisto
 </a>
 
-</body>
-</html>
+{% endblock %}
