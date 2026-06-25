@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM completo</title>
+
+    <style>
+        .item {
+            margin: 5px;
+        }
+
+        .evidenziato {
+            background: black;
+            color: white;
+            padding: 4px;
+        }
+    </style>
+</head>
+
+<body>
+
+<p id="messaggio"></p>
+
+<ul id="mia-lista">
+    <li>Elemento iniziale</li>
+</ul>
+
+<script>
+
+//////////////////////////////
+// 1. TESTO BASE
+//////////////////////////////
+
+const elem = document.querySelector('#messaggio');
+elem.textContent = "Ciao! Funziona 🎉";
+
+
+//////////////////////////////
+// 2. CLASSI E ATTRIBUTI
+//////////////////////////////
+
+elem.classList.add('evidenziato');
+elem.classList.toggle('attivo'); // esempio toggle
+
+elem.setAttribute('data-id', '123');
+console.log(elem.getAttribute('data-id'));
+
+
+//////////////////////////////
+// 3. CREARE ELEMENTI
+//////////////////////////////
+
+const nuovoItem = document.createElement('li');
+nuovoItem.textContent = 'Nuovo elemento creato';
+nuovoItem.classList.add('item');
+
+
+//////////////////////////////
+// 4. AGGIUNGERE AL DOM (IN FONDO)
+//////////////////////////////
+
+const lista = document.querySelector('#mia-lista');
+
+// ✔ aggiunge in fondo (METODO PRINCIPALE)
+lista.appendChild(nuovoItem);
+
+
+//////////////////////////////
+// 5. ALTERNATIVA: insertAdjacentHTML
+//////////////////////////////
+
+lista.insertAdjacentHTML(
+    'beforeend',
+    "<li class='item'>Elemento aggiunto con inner HTML</li>"
+);
+
+
+//////////////////////////////
+// 6. EVENTI (ESEMPI)
+//////////////////////////////
+
+// click su messaggio
+elem.addEventListener('click', (e) => {
+    e.target.textContent = 'Hai cliccato il testo!';
+});
+
+// mouse over
+elem.addEventListener('mouseover', () => {
+    elem.style.background = 'yellow';
+});
+
+elem.addEventListener('mouseout', () => {
+    elem.style.background = '';
+});
+
+elem.addEventListener('touchstart', e => {
+    // prende il primo punto di contatto (dito)
+    const x = e.touches[0].clientX;
+    const y = e.touches[0].clientY;
+
+    console.log('Tocco in:', x, y);
+});
+</script>
+
+</body>
+</html>
