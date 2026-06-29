@@ -1,0 +1,8 @@
+Ogni parola dell'utente viene trasformat in un embedding
+quali sono i quanti vicino a te? database vetttoriale
+OpenAI, o LLM
+python
+db vettoriale
+db classico sql
+
+langChain è un framework python LLM
