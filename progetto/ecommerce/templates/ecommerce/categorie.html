@@ -1,0 +1,17 @@
+{% extends "ecommerce/base.html" %}
+
+{% block title %}Categorie{% endblock %}
+
+{% block content %}
+
+<h1>Categorie</h1>
+
+<ul>
+    {% for categoria in categorie %}
+        <li>{{ categoria.nome }}</li>
+    {% empty %}
+        <li>Nessuna categoria</li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

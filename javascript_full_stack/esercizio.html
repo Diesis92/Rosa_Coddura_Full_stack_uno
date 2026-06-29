@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista della spesa</title>
+</head>
+<body>
+
+    <h1>Lista della spesa</h1>
+
+    <div>
+        <input type="text" id="input-item" placeholder="Aggiungi prodotto ...">
+        <button id="btn-aggiungi">Aggiungi</button>
+    </div>
+
+    <ul id="lista"></ul>
+
+<script>
+
+const input = document.querySelector('#input-item');
+const btn = document.querySelector('#btn-aggiungi');
+const lista = document.querySelector('#lista');
+
+
+//Enter da tastiera
+
+input.addEventListener('keydown', function(event) {
+
+    if (event.key === 'Enter') {
+        event.preventDefault();
+        aggiungiItem(); // preventDefault(): blocca il comportamento di default (es. reload pagina)
+    }
+
+});
+
+
+//click bottone
+
+btn.addEventListener('click', () => {
+    aggiungiItem();
+});
+
+
+//funzione principale
+
+function aggiungiItem() {
+
+    const valore = input.value.trim();
+
+    if (valore === "") return; 
+
+    const li = document.createElement('li');
+    li.textContent = valore;
+
+    const btnElimina = document.createElement('button');
+    btnElimina.textContent = "Elimina";
+
+    btnElimina.addEventListener('click', () => {
+        li.remove();
+    });
+
+    li.appendChild(btnElimina);
+    lista.appendChild(li);
+
+    input.value = "";
+}
+
+</script>
+
+</body>
+</html>

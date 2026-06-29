@@ -1,18 +1,36 @@
-<!DOCTYPE html>
-<html lang="it">
-<head>
-    <meta charset="UTF-8">
-    <title>Catalogo Prodotti</title>
-</head>
-<body>
+{% extends "ecommerce/base.html" %}
+
+{% block title %}Catalogo{% endblock %}
+
+{% block content %}
 
 <h1>Catalogo Prodotti</h1>
 
-{% if prodotti %}
+<!-- FILTRO CATEGORIE -->
+<h3>Categorie</h3>
 
-    {% for prodotto in prodotti %}
+<ul>
+    <li>
+        <a href="{% url 'ecommerce:catalogo_prodotti' %}">
+            Tutti
+        </a>
+    </li>
 
-        <hr>
+    {% for categoria in categorie %}
+        <li>
+            <a href="{% url 'ecommerce:catalogo_prodotti' %}?categoria={{ categoria.id }}">
+                {{ categoria.nome }}
+            </a>
+        </li>
+    {% endfor %}
+</ul>
+
+<hr>
+
+<!-- PRODOTTI -->
+{% for prodotto in prodotti %}
+
+    <div style="border:1px solid #ddd; padding:10px; margin-bottom:10px;">
 
         <h3>{{ prodotto.nome }}</h3>
 
@@ -20,27 +38,39 @@
 
         <p>Prezzo: €{{ prodotto.prezzo }}</p>
 
+        <p>
+            Categoria:
+            {% if prodotto.categoria %}
+                {{ prodotto.categoria.nome }}
+            {% else %}
+                Nessuna
+            {% endif %}
+        </p>
+
+        <!-- TAG -->
+        <p>
+            Tag:
+            {% for tag in prodotto.tags.all %}
+                #{{ tag.nome }}
+            {% empty %}
+                Nessun tag
+            {% endfor %}
+        </p>
+
         <p>Disponibilità: {{ prodotto.quantita_disponibile }}</p>
 
-        <a href="{% url 'ecommerce:acquisto_prodotto' %}">
-            Compra
-        </a>
+        {% if prodotto.quantita_disponibile <= 0 %}
+            <strong style="color:red;">ESAURITO</strong>
+        {% else %}
+            <a href="{% url 'ecommerce:acquisto_prodotto' %}">
+                Compra
+            </a>
+        {% endif %}
 
-        <hr>
+    </div>
 
-    {% endfor %}
-
-{% else %}
-
+{% empty %}
     <p>Nessun prodotto disponibile</p>
+{% endfor %}
 
-{% endif %}
-
-<br>
-
-<a href="{% url 'ecommerce:acquisto_prodotto' %}">
-    Vai alla pagina acquisto
-</a>
-
-</body>
-</html>
+{% endblock %}

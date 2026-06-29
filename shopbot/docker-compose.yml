@@ -1,0 +1,15 @@
+services:
+
+  shopbot:
+    build: .
+
+    container_name: shopbot
+
+    env_file:
+      - .env
+
+    volumes:
+      - ./chroma_db:/app/chroma_db
+
+    stdin_open: true
+    tty: true

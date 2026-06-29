@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Ecommerce{% endblock %}</title>
+</head>
+
+<body>
+
+<nav style="padding:10px; border-bottom:1px solid #ccc;">
+
+    <a href="{% url 'ecommerce:catalogo_prodotti' %}">
+        Catalogo
+    </a>
+
+    |
+
+    <a href="{% url 'ecommerce:acquisto_prodotto' %}">
+        Acquista
+    </a>
+
+    |
+
+    <a href="{% url 'ecommerce:categorie' %}">
+        Categorie
+    </a>
+
+    |
+
+    {% if user.is_authenticated %}
+        <span>Ciao, {{ user.username }}</span>
+        |
+        <a href="{% url 'logout' %}">Logout</a>
+    {% else %}
+        <a href="{% url 'login' %}">Login</a>
+    {% endif %}
+
+</nav>
+
+{% block content %}
+{% endblock %}
+
+</body>
+</html>
