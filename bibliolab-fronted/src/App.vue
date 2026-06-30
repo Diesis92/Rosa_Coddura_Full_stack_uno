@@ -1,4 +1,4 @@
-<script setup></script>
+<!-- <script setup></script>
 
 <template>
   <h1>You did it!</h1>
@@ -8,4 +8,12 @@
   </p>
 </template>
 
-<style scoped></style>
+<style scoped></style> -->
+
+<script setup>
+import SchedaLibro from './components/SchedaLibro.vue'
+</script>
+
+<template>
+  <SchedaLibro />
+</template>
