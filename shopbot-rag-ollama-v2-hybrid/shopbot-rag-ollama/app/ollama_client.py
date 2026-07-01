@@ -11,39 +11,21 @@ from app import config
 
 # ── Embedding ─────────────────────────────────────────────────────────
 
-# def get_embedding(testo: str) -> list[float]:
-#     """
-#     Genera un embedding vettoriale per il testo dato.
-#     Usa OLLAMA_EMBED_MODEL (default: nomic-embed-text).
-#     """
-#     url = f"{config.OLLAMA_BASE_URL}/api/embed"
-#     payload = {
-#         "model": config.OLLAMA_EMBED_MODEL,
-#         "input": testo,
-#     }
-#     resp = requests.post(url, json=payload, timeout=60)
-#     resp.raise_for_status()
-#     data = resp.json()
-#     # /api/embed restituisce {"embeddings": [[...]] }
-#     return data["embeddings"][0]
-
-#fix
-
 def get_embedding(testo: str) -> list[float]:
-    url = f"{config.OLLAMA_BASE_URL}/api/embeddings"
-
+    """
+    Genera un embedding vettoriale per il testo dato.
+    Usa OLLAMA_EMBED_MODEL (default: nomic-embed-text).
+    """
+    url = f"{config.OLLAMA_BASE_URL}/api/embed"
     payload = {
         "model": config.OLLAMA_EMBED_MODEL,
-        "prompt": testo,
+        "input": testo,
     }
-
     resp = requests.post(url, json=payload, timeout=60)
     resp.raise_for_status()
-
     data = resp.json()
-
-    # formato corretto Ollama:
-    return data["embedding"]
+    # /api/embed restituisce {"embeddings": [[...]] }
+    return data["embeddings"][0]
 
 
 # ── Chat ──────────────────────────────────────────────────────────────
