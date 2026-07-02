@@ -10,10 +10,6 @@
 
 <style scoped></style> -->
 
-<script setup>
-import SchedaLibro from './components/SchedaLibro.vue'
-</script>
-
 <template>
-  <SchedaLibro />
+  <router-view />
 </template>
