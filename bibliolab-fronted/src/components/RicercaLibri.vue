@@ -90,7 +90,7 @@ const totaleDisponibili = computed(() =>
 const libriFiltratiCombinati = computed(() => {
   return libri.value.filter((libro) => {
     const matchTesto =
-      libro.titolo.toLowerCase().includes(filtro.value.toLowerCase()) ||
+      libro.titolo.toLowerCase().includes(filtro.value.toLowerCase()) || 
       libro.autore.toLowerCase().includes(filtro.value.toLowerCase())
 
     const matchGenere =
