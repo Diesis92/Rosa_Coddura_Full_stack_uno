@@ -1,15 +1,10 @@
-<!-- <script setup></script>
+<script setup>
+import CatalogoView from '@/views/CatalogoView.vue'
+</script>
 
 <template>
-  <h1>You did it!</h1>
-  <p>
-    Visit <a href="https://vuejs.org/" target="_blank" rel="noopener">vuejs.org</a> to read the
-    documentation
-  </p>
+  <CatalogoView />
 </template>
 
-<style scoped></style> -->
-
-<template>
-  <router-view />
-</template>
+<style scoped>
+</style>
