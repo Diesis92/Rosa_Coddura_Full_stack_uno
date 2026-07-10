@@ -39,6 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'libri',
     'corsheaders',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -104,6 +107,60 @@ AUTH_PASSWORD_VALIDATORS = [
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173"
 ]
+
+REST_FRAMEWORK = {
+
+    # Classi usate per identificare l'utente che fa la richiesta
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+
+        # Autenticazione tramite token nell'header Authorization
+        "rest_framework.authentication.TokenAuthentication",
+
+        # Autenticazione tramite sessione Django (utile per la Browsable API)
+        "rest_framework.authentication.SessionAuthentication",
+
+    ],
+
+
+    # Classi usate per decidere se l'utente può accedere alla risorsa
+    "DEFAULT_PERMISSION_CLASSES": [
+
+        # Solo gli utenti autenticati possono accedere agli endpoint
+        "rest_framework.permissions.IsAuthenticated",
+
+    ],
+
+
+    # Classe usata per suddividere le liste di risultati in pagine
+    "DEFAULT_PAGINATION_CLASS":
+        "rest_framework.pagination.PageNumberPagination",
+
+
+    # Numero di oggetti restituiti per pagina
+    "PAGE_SIZE": 20,
+
+
+    # Classi usate per limitare la frequenza delle richieste (rate limiting)
+    "DEFAULT_THROTTLE_CLASSES": [
+
+        # Limite per utenti non autenticati (anonimi)
+        "rest_framework.throttling.AnonRateThrottle",
+
+        # Limite per utenti autenticati
+        "rest_framework.throttling.UserRateThrottle",
+
+    ],
+
+
+    # Definisce i limiti di frequenza per ogni classe di throttling
+    "DEFAULT_THROTTLE_RATES": {
+
+        "anon": "100/day",   # Massimo 100 richieste al giorno per utenti anonimi
+        "user": "1000/day",  # Massimo 1000 richieste al giorno per utenti autenticati
+
+    },
+
+}
 # Internationalization
 # https://docs.djangoproject.com/en/6.0/topics/i18n/
 
