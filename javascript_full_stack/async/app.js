@@ -110,3 +110,6 @@ const r =  numeri.reduce ((totale, numero) => {
 //quindi il totale degli elementi dell'array è 60
 //la callback viene chiamata ad ogni nuovo giro degli elementi dell'array
 //la callback si chiama r in questo caso?
+
+//"Le callback sono funzioni che vengono consegnate a qualcun altro, il quale decide quando eseguirle."
+
