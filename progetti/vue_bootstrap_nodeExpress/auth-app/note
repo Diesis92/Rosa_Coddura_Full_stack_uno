@@ -1,0 +1,49 @@
+Buona domanda perché i preset di DevTools cambiano nel tempo e alcuni sono ormai poco rappresentativi del mercato reale. Ecco cosa considerare oggi:
+
+Mobile
+
+iPhone 12/13/14 Pro (390×844) — è diventato lo standard de facto per rappresentare iOS, perché quella dimensione è rimasta stabile su più generazioni recenti di iPhone
+Pixel 7 (412×915) — buon riferimento per Android "medio-standard"
+Il tuo Redmi Note 9S ha una risoluzione simile (~1080×2340, quindi ~393×851 in CSS px) — quindi in realtà il tuo device reale copre già bene questa fascia
+
+Se devi sceglierne solo uno per lavorare velocemente in DevTools, 390×844 (iPhone) è il riferimento più usato professionalmente perché è anche la base su cui Bootstrap e la maggior parte dei framework CSS calibrano il breakpoint sm (576px) come soglia.
+
+Tablet
+
+iPad Air (820×1180) o iPad Mini (768×1024) — quest'ultimo in particolare è importante perché 768px è esattamente il breakpoint md di Bootstrap (col-md-*). Testare a quella larghezza ti fa vedere esattamente dove scatta il tuo layout da mobile a tablet
+
+Un consiglio pratico per il tuo progetto Bootstrap
+
+Più che affezionarti a un device specifico, conviene testare direttamente ai breakpoint di Bootstrap stessi, usando "Responsive" con dimensioni custom ma partendo da questi valori:
+
+Breakpoint	Larghezza	Classe Bootstrap
+Extra small	<576px	(default, no prefisso)
+Small	≥576px	sm
+Medium	≥768px	md
+Large	≥992px	lg
+Extra large	≥1200px	xl
+
+Nel tuo LoginView.vue hai col-md-6 e col-lg-4, quindi i punti critici da controllare a mano sono proprio 768px e 992px — 
+è lì che il layout cambia comportamento, ed è più utile guardare quei numeri esatti piuttosto che affidarti solo a un preset device che potrebbe non coincidere perfettamente.
+
+qual è il metodo profesisonale tra testare la responsive sul browser e quello del proprio telefono con ip?
+
+Nessuno dei due da solo — il metodo professionale è usarli in sequenza, con scopi diversi:
+
+1. DevTools responsive → durante lo sviluppo attivo
+
+Lo usi per iterare velocemente: stai scrivendo CSS, cambi breakpoint, vedi il risultato all'istante senza dover ricaricare su un device fisico. È il tuo strumento principale per il 90% del lavoro quotidiano, perché è comodo e veloce — basta ricordarsi di usare i device preset reali (o comunque impostare correttamente il DPR) come abbiamo visto prima, altrimenti il test è fuorviante.
+
+2. Device reale via IP → prima di considerare il lavoro "finito"
+
+Lo usi come verifica finale, non durante ogni piccola modifica, perché:
+
+Il rendering reale del motore mobile (touch target, tastiera virtuale che si apre e sposta il layout, comportamento degli input, focus) non è mai identico all'emulazione
+Le performance reali (soprattutto su device meno potenti) si vedono solo così
+Alcuni bug CSS specifici di iOS Safari o browser Android (es. 100vh che si comporta diversamente con la barra degli indirizzi) emergono solo su device fisico
+Il workflow professionale tipico è:
+
+Sviluppi e sistemi il layout con DevTools responsive (device preset corretti)
+Controlli 2-3 breakpoint chiave (mobile piccolo, tablet, desktop)
+Prima di un commit/PR importante, o a fine giornata, fai un test rapido sul telefono reale via IP per la conferma finale
+In un team con QA dedicato, spesso c'è anche un terzo livello: strumenti come BrowserStack o Sauce Labs, che permettono di testare su decine di combinazioni device/browser/OS reali da remoto, per progetti dove serve garantire compatibilità ampia — ma per il tuo livello attuale, DevTools + device reale via IP è più che sufficiente e già una buona pratica.

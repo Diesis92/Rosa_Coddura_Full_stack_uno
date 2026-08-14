@@ -1,0 +1,128 @@
+* {
+    margin: 0;                 /* Elimina i margini predefiniti del browser */
+    padding: 0;                /* Elimina i padding predefiniti */
+    box-sizing: border-box;    /* Include padding e border nella larghezza/altezza */
+    font-family: 'Poppins', sans-serif; /* Imposta il font */
+}
+
+.container {
+    width: 100%;               /* La larghezza è il 100% del contenitore padre */
+    
+    min-height: 100vh;         /* Altezza minima = 100% dell'altezza della finestra */
+    
+    background: linear-gradient(
+        135deg,
+        #153677,
+        #4e085f
+    );                         /* Sfondo con gradiente */
+
+    padding: 10px;             /* Spazio interno di 10px */
+}
+
+/* 
+   LAYOUT FLUIDO / RESPONSIVE:
+   width: 100% → occupa tutta la larghezza disponibile.
+   min-height: 100vh → occupa almeno tutta l'altezza della viewport,
+   ma può crescere se il contenuto è più alto.
+
+   Queste proprietà rendono il contenitore fluido rispetto allo schermo.
+   Non indicano da sole un approccio "mobile-first" o "desktop-first".
+*/
+
+.todo-app{
+    width: 100%;
+    max-width: 540px;
+    background: #fff;
+    margin: 100px auto 20px; /* Centra il contenitore orizzontalmente e aggiunge margine verticale */
+    padding: 40px 30px 70px; /* Padding interno */  
+    border-radius: 10px;      /* Angoli arrotondati */  
+}
+
+.todo-app h2{
+    color: #002765; /* Colore del testo */
+    display: flex; /* Usa Flexbox per l'allineamento */
+    align-items: center; /* Allinea verticalmente al centro */
+    margin-bottom: 20px; /* Spazio sotto l'intestazione */
+}
+
+.todo-app h2 img{
+    width: 30px; /* Larghezza dell'immagine */
+    margin-left: 10px; /* Spazio a sinistra dell'immagine */
+}
+
+.row{
+    display: flex; /* Usa Flexbox per il layout */
+    align-items: center; /* Allinea verticalmente al centro */
+    justify-content: space-between; /* Spazio tra gli elementi */
+    background: #edeef0; /* Colore di sfondo */
+    border-radius: 30px; /* Angoli arrotondati */
+    padding-left: 20px; /* Padding a sinistra */
+    margin-bottom: 25px; /* Spazio sotto la riga */
+}
+
+input{
+    flex: 1; /* Occupa tutto lo spazio disponibile */
+    border:none;
+    outline: none; /*Rimuove il cotorno quando l'input è selezionato */
+    background: transparent; /* Sfondo trasparente */
+    padding: 10px; /* Padding interno */
+}
+
+button{
+    border:none;
+    outline: none;
+    padding: 16px 50px; /* Padding interno */
+    background: #ff5945; /* Colore di sfondo */
+    color: #fff; /* Colore del testo */
+    font-size: 16px; /* Dimensione del testo */
+    cursor: pointer; /* Cambia il cursore al passaggio del mouse */
+    border-radius: 40px; /* Angoli arrotondati */
+}
+
+ul li{
+    list-style: none; /* Rimuove i punti elenco */
+    font-size: 17px; /* Dimensione del testo */
+    padding: 12px 8px 12px 50px; /* Padding interno */
+    user-select: none; /* Impedisce la selezione del testo */
+    cursor: pointer; /* Cambia il cursore al passaggio del mouse */ 
+    position: relative; /* Necessario per il posizionamento assoluto del cerchio */
+}
+
+ul li::before{
+    content: ''; /* Aggiunge un cerchio prima dell'elemento della lista */
+    position: absolute; /* Posizionamento assoluto */
+    height: 28px; /* Altezza del cerchio */
+    width: 28px; /* Larghezza del cerchio */
+    border-radius: 50%; /* Rende il cerchio perfetto */
+    background-image:url(images/unchecked.png); /* Immagine di sfondo per il cerchio */
+    background-size: cover; /* Copre l'intero cerchio con l'immagine */
+    background-position: center; /* Centra l'immagine */
+    top:12px; /* Posizione dall'alto */
+    left: 8px; /* Posizione da sinistra */
+}
+
+ul li.checked{
+    color:#555; /* Colore del testo per gli elementi completati */
+    text-decoration: line-through; /* Testo barrato per gli elementi completati */
+}
+
+ul li.checked::before{
+    background-image:url(images/checked.png); /* Cambia l'immagine del cerchio per gli elementi completati */
+}
+
+ul li span{
+    position: absolute; /* Posizionamento assoluto */
+    right: 0px; /* Posizione da destra */
+    top: 5px; /* Posizione dall'alto */
+    width: 40px; /* Larghezza dello span */
+    height: 40px; /* Altezza dello span */
+    font-size: 22px; /* Dimensione del testo */
+    color: #555; /* Colore del testo */
+    line-height: 40px; /* Altezza della linea per centrare verticalmente il testo */
+    text-align: center; /* Centra il testo orizzontalmente */
+    border-radius: 50%; /* Rende lo span un cerchio */
+}
+
+ul li span:hover{
+    background: #edeef0; /* Cambia il colore al passaggio del mouse */
+}
