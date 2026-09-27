@@ -11,3 +11,55 @@ creare 3 modelli: prodotti, categorie e ordini
 
 N.B. Usa i field lookups come __gte, __lte, __range.
 Per le aggregazioni importa Count, avg, Min, Max da Django.db.models
+
+Esecuzione 
+1 crea ambiente virtuale py: # python -m venv venv
+# venv\Scripts\activate
+2- # Installa Django
+pip install django
+
+# Crea il progetto
+django-admin startproject negozio_django .
+
+# Crea l'app
+python manage.py startapp negozio
+
+3- negozio_django/                 ← root del progetto
+│
+├── manage.py
+│
+├── negozio_django/             ← configurazione progetto ✅ nome diverso!
+│   ├── __init__.py
+│   ├── settings.py
+│   ├── urls.py
+│   └── wsgi.py
+│
+└── negozio/                    ← la tua app ✅ nessun conflitto
+    ├── __init__.py
+    ├── admin.py
+    ├── apps.py
+    ├── models.py
+    ├── views.py
+    ├── urls.py
+    └── migrations/
+        └── __init__.py
+
+4 - 3. Registra l'app in settings.py
+python# negozio/settings.py
+
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    ...
+    'negozio',                 # ← aggiungi questa riga
+]
+
+5- Schema relazioni tra i modelli
+Category
+  │
+  │ 1 ──── N
+  │
+Product ──── 1 ──── N ──── Order
+
+Una Category ha molti Product
+Un Product ha molti Order

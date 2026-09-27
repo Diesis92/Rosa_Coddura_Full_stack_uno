@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text" id="username" placeholder="Username">
+    <button id="login">Accedi</button>
+
+    <script>
+
+        function benvenuto(nome) {
+            console.log("Benvenuta " + nome);
+        }
+
+        const bottone = document.querySelector("#login");
+        bottone.addEventListener("click", function() {
+            const nome = document.querySelector("#username").value 
+            benvenuto(nome)
+        })
+
+
+    </script>
+</body>
+
+</html>

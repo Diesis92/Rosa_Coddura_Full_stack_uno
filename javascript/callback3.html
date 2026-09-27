@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text" id="messaggio" placeholder="Scrivi un messaggio">
+    <button id="invia">Invia</button>
+
+    <script>
+
+        function inviaMessaggio(testo) {
+            console.log("Messaggio inviato: " + testo);
+        }
+
+        const bottone = document.querySelector("#invia");
+        bottone.addEventListener("click", function () {
+            const  messaggio = document.querySelector("#messaggio").value
+            
+            inviaMessaggio(messaggio)
+        })
+
+        
+    </script>
+</body>
+
+</html>

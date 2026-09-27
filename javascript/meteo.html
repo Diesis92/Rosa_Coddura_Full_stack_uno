@@ -1,0 +1,88 @@
+<!-- app meteo
+
+mettere titolo
+input
+button
+div per risultato
+
+script
+creare variabile da allegare all'id button e legarlo al metodo addEventListener che contiene la 
+callvback async
+legare ad una costante id input
+aprire un try catch con const e assegnarla ad await fetch pe rla citttà
+legare alla const dati la precedente const
+controllo if su città che non esiste
+
+creare tre const per latutuide , logitudine e assegnarle tutte a datiCitta.risultato[0].latitude
+e così via
+
+usiamo le coordinate per ottenere il meteodichiariamo una const e la assegnaimo alle api meteo
+attendo json
+mostro il risultato della pagina con id del div e assegno il nome della città e la temperatura a cui
+dobbiamo prende la variabille$datiMeteo.current.temperature_2m
+
+
+con catch sempre con querySelector meteo, individuiamo un eventuale errore -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>meteo</title>
+</head>
+<body>
+    <h1>APP METEO</h1>
+    <input type="text" id="citta" placeholder="inserisci il nome della città">
+    <button id="invia">Invia</button>
+    <div id="risultato"></div>
+   <script>
+    const bottone = document.querySelector("#invia");
+
+bottone.addEventListener("click", async () => {
+
+    const citta = document.querySelector("#citta").value;
+
+    try {
+        const rispostaCitta = await fetch(
+            `https://geocoding-api.open-meteo.com/v1/search?name=${citta}`
+        );
+
+        const datiCitta = await rispostaCitta.json();
+
+        if (!datiCitta.results || datiCitta.results.length === 0) {
+            document.querySelector("#risultato").textContent =
+                "Città inesistente";
+            return;
+        }
+
+        const nomeCitta = datiCitta.results[0].name;
+
+        // Controlliamo che il nome trovato corrisponda a quello inserito
+        if (nomeCitta.toLowerCase() !== citta.toLowerCase()) {
+            document.querySelector("#risultato").textContent =
+                "Città non trovata";
+            return;
+        }
+
+        const latitudine = datiCitta.results[0].latitude;
+        const longitudine = datiCitta.results[0].longitude;
+
+        const rispostaMeteo = await fetch(
+            `https://api.open-meteo.com/v1/forecast?latitude=${latitudine}&longitude=${longitudine}&current=temperature_2m`
+        );
+
+        const datiMeteo = await rispostaMeteo.json();
+
+        document.querySelector("#risultato").innerHTML =
+            `<h2>${nomeCitta}</h2>
+             <p>Temperatura: ${datiMeteo.current.temperature_2m} °C</p>`;
+
+    } catch (error) {
+        document.querySelector("#risultato").textContent =
+            "Si è verificato un errore durante il recupero dei dati";
+    }
+});
+   </script>
+</body>
+</html>

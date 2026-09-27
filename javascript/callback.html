@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+   
+
+
+  <input type="text" id="prodotto" placeholder="inserisci il tuo prodotto">
+
+<button id="carrello">Aggiungi al carrello</button>
+
+<script>
+
+    function prodottoAggiunto() {
+        console.log("Prodotto aggiunto al carrello!");
+    }
+
+    const bottone = document.querySelector("#carrello");
+
+    bottone.addEventListener("click", function () {
+        prodottoAggiunto();
+    });
+
+</script>
+
+
+
+</body>
+
+</html>

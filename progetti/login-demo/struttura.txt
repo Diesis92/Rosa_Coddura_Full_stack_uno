@@ -1,0 +1,50 @@
+Browser → JavaScript → HTTP → Express → SQL → MySQL/MariaDB → Express → HTTP → JavaScript → Browser
+
+
+login-demo/
+│
+├── public/
+│   ├── index.html
+│   ├── style.css
+│   └── script.js
+│
+├── server.js
+├── package.json
+└── database.sql
+
+| Parte          | Responsabilità                              |
+| -------------- | ------------------------------------------- |
+| `index.html`   | Mostra login e registrazione                |
+| `style.css`    | Aspetto grafico minimo                      |
+| `script.js`    | Legge i dati dei form e comunica col server |
+| `server.js`    | Riceve le richieste e parla con MySQL       |
+| `database.sql` | Crea database e tabella                     |
+| MySQL/MariaDB  | Memorizza realmente gli utenti              |
+
+
+             BROWSER
+                │
+                │ dati del form
+                ▼
+        JavaScript
+                │
+                │ HTTP POST
+                ▼
+        Node.js + Express
+                │
+                │ SQL INSERT
+                ▼
+        MySQL / MariaDB
+                │
+                │ risultato
+                ▼
+        Node.js + Express
+                │
+                │ HTTP Response
+                ▼
+        JavaScript
+                │
+                ▼
+             HTML
+
+

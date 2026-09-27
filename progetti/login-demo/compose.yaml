@@ -1,0 +1,43 @@
+services:
+
+  backend:
+    build: .
+    # "Costruisci l'immagine del backend usando questa cartella come contesto."
+    container_name: login-demo-backend
+    restart: unless-stopped
+
+    working_dir: /app
+
+    volumes:
+      - .:/app
+      - /app/node_modules
+
+    ports:
+      - "3000:3000"
+
+    env_file:
+      - .env
+
+    command: node server.js
+
+    depends_on:
+      - db
+
+  db:
+    image: mariadb:latest
+    container_name: login-demo-db
+    restart: unless-stopped
+
+    environment:
+      MARIADB_ROOT_PASSWORD: ${DB_PASSWORD}
+      MARIADB_DATABASE: ${DB_NAME}
+
+    ports:
+      - "3307:3306"
+
+    volumes:
+      - mariadb_data:/var/lib/mysql
+      - ./database.sql:/docker-entrypoint-initdb.d/database.sql:ro
+
+volumes:
+  mariadb_data:

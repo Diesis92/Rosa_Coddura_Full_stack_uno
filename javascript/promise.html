@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        const promessa = new Promise((resolve, reject) => {
+
+    let successo = true;
+
+    if (successo) {
+        resolve("Operazione riuscita!");
+    } else {
+        reject("Qualcosa è andato storto!");
+    }
+
+});
+
+promessa
+    .then(risultato => {
+        console.log(risultato);
+    })
+    .catch(errore => {
+        console.log(errore);
+    });
+
+
+//     Esercizi Promise
+
+// Promise 1 — Login simulato
+
+// Crea una Promise che controlli:
+const login = new Promise((resolve, reject) => {
+    let  username = "admin"
+    let password = "1234"
+
+    if (username == "admin" && password == "1234"){
+        resolve("Login effettuato!");
+    }else{
+        reject("Username o password errati");
+    }
+})
+
+login
+    .then(risultato => {
+        console.log(risultato);
+    })
+    .catch(errore => {
+        console.log(errore);
+    });
+// let  username = "admin"
+// let password = "1234"
+
+// Se sono corretti:
+
+// Login effettuato!
+
+// Se sono sbagliati:
+
+// Username o password errati
+    </script>
+</body>
+</html>
